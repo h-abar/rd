@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Research Abstract | SRIF 2026</title>
+    <meta name="description" content="Submit your scientific research abstract for SRIF 2026">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="form-styles.css">
+</head>
+
+<body>
+    <!-- Science Background -->
+    <div class="science-bg">
+        <canvas id="scienceCanvas"></canvas>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-atom"></i></div>
+                <div class="logo-text">
+                    <span class="logo-main">SRIF</span>
+                    <span class="logo-year">2026</span>
+                </div>
+            </a>
+            <nav class="nav">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#tracks" class="nav-link">Tracks</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="mobile-toggle" id="mobileToggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(135deg, #0a0f1a 0%, #0ea5e9 100%);">
+        <div class="container">
+            <a href="index.html#tracks" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Tracks
+            </a>
+            <h1><i class="fas fa-microscope"></i> Scientific Research</h1>
+            <p>Submit your original research abstract for review and presentation</p>
+            <div class="presentation-types-header">
+                <span><i class="fas fa-image"></i> Poster</span>
+                <span><i class="fas fa-microphone-alt"></i> Oral Presentation</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-card">
+                    <h2 class="form-title">
+                        <i class="fas fa-file-alt"></i> Abstract Submission Form
+                    </h2>
+                    <p class="form-subtitle">Please fill in all required fields marked with <span
+                            style="color: var(--danger);">*</span></p>
+
+                    <form id="abstractForm">
+                        <!-- Researcher Information -->
+                        <div class="form-divider"><span>Researcher Information</span></div>
+
+                        <div class="form-group">
+                            <label>Name of the Submitting Author <span class="required">*</span></label>
+                            <input type="text" class="form-control" name="author" placeholder="Enter your full name"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Name of the Supervisor/Lead Researcher <span class="required">*</span></label>
+                            <input type="text" class="form-control" name="supervisor"
+                                placeholder="Enter supervisor's full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Names of Other Researchers in the Team</label>
+                            <textarea class="form-control" name="team" rows="3"
+                                placeholder="List team members in order of their contribution to the research (one per line)"></textarea>
+                            <p class="form-hint">Arrange names in order of contribution to the research</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address <span class="required">*</span></label>
+                            <input type="email" class="form-control" name="email" placeholder="your.email@example.com"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Affiliation <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="affiliation" value="medicine" required>
+                                    <span>AlMaarefa University, College of Medicine</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="affiliation" value="pharmacy">
+                                    <span>AlMaarefa University, College of Pharmacy</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="affiliation" value="medical-sciences">
+                                    <span>AlMaarefa University, College of Medical Sciences</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="affiliation" value="alumni">
+                                    <span>Alumni/Graduate of AlMaarefa University</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="affiliation" value="external">
+                                    <span>External University/Institution</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="externalInstitution" style="display: none;">
+                            <label>Institution Name & Specialization <span class="required">*</span></label>
+                            <input type="text" class="form-control" name="institution"
+                                placeholder="Enter your university/institution name and your specialization/program">
+                        </div>
+
+                        <!-- Abstract Details -->
+                        <div class="form-divider"><span>Abstract Details (100-500 Words)</span></div>
+
+                        <div class="form-group">
+                            <label>Title of the Abstract <span class="required">*</span></label>
+                            <input type="text" class="form-control" name="title"
+                                placeholder="Enter the title of your research abstract" required>
+                        </div>
+
+                        <div class="abstract-box">
+                            <h4><i class="fas fa-bullseye"></i> Background and Objectives</h4>
+                            <textarea class="form-control" name="background" rows="4"
+                                placeholder="Describe the need for the study and the knowledge gap with the aim/objectives"
+                                required></textarea>
+                            <p class="form-hint">Briefly describe the need for the study and the knowledge gap with the
+                                aim/objectives</p>
+                        </div>
+
+                        <div class="abstract-box">
+                            <h4><i class="fas fa-cogs"></i> Methods</h4>
+                            <textarea class="form-control" name="methods" rows="4"
+                                placeholder="Describe devices/instruments used, ethical elements, and data analysis methods"
+                                required></textarea>
+                            <p class="form-hint">Highlight the devices/instruments used in the study, along with ethical
+                                elements and data analysis</p>
+                        </div>
+
+                        <div class="abstract-box">
+                            <h4><i class="fas fa-chart-line"></i> Results</h4>
+                            <textarea class="form-control" name="results" rows="4"
+                                placeholder="Describe the major findings of the study with precise data"
+                                required></textarea>
+                            <p class="form-hint">Describe the major findings of the study with the help of precise data
+                            </p>
+                        </div>
+
+                        <div class="abstract-box">
+                            <h4><i class="fas fa-flag-checkered"></i> Conclusion</h4>
+                            <textarea class="form-control" name="conclusion" rows="4"
+                                placeholder="Present the take-home message and important recommendations"
+                                required></textarea>
+                            <p class="form-hint">Present a 'take-home message' and the important recommendations based
+                                on findings</p>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div class="form-divider"><span>Upload Abstract File</span></div>
+
+                        <div class="form-group">
+                            <label>Abstract Document <span class="required">*</span></label>
+                            <div class="file-upload">
+                                <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx" required>
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h4>Click or Drag to Upload</h4>
+                                <p>Include: Title, Authors, Affiliation, and Abstract</p>
+                                <small>Accepted formats: PDF, DOC, DOCX (Max 10MB)</small>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <i class="fas fa-paper-plane"></i> Submit Research Abstract
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 24px 0;">
+                <p>&copy; 2026 Scientific Research & Innovation Forum. AlMaarefa University. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

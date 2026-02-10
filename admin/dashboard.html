@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | SRIF 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <div class="logo-text">
+                    <span class="logo-main">SRIF</span>
+                    <span class="logo-sub">Admin Panel</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-page="dashboard">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" data-page="research">
+                <i class="fas fa-microscope"></i>
+                <span>Research Abstracts</span>
+            </a>
+            <a href="#" class="nav-item" data-page="innovation">
+                <i class="fas fa-lightbulb"></i>
+                <span>Innovation Abstracts</span>
+            </a>
+            <a href="#" class="nav-item" data-page="news">
+                <i class="fas fa-newspaper"></i>
+                <span>News & Announcements</span>
+            </a>
+            <a href="#" class="nav-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search submissions...">
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">5</span>
+                </button>
+                <div class="admin-profile">
+                    <div class="admin-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="admin-info">
+                        <span class="admin-name" id="adminName">Admin</span>
+                        <span class="admin-role">Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Page -->
+        <section class="page active" id="page-dashboard">
+            <div class="page-header">
+                <h1>Dashboard Overview</h1>
+                <p>Welcome back! Here's what's happening with SRIF 2026.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalSubmissions">0</h3>
+                        <p>Total Submissions</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon cyan">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="researchCount">0</h3>
+                        <p>Research Abstracts</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="innovationCount">0</h3>
+                        <p>Innovation Abstracts</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="approvedCount">0</h3>
+                        <p>Approved</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card recent-submissions">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clock"></i> Recent Submissions</h3>
+                        <a href="#" class="view-all" data-page="research">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Track</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentSubmissions">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card quick-actions">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    </div>
+                    <div class="card-body">
+                        <a href="#" class="action-btn" data-page="news">
+                            <i class="fas fa-plus"></i>
+                            <span>Add News</span>
+                        </a>
+                        <a href="../index.html" target="_blank" class="action-btn">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Website</span>
+                        </a>
+                        <a href="#" class="action-btn" data-action="export">
+                            <i class="fas fa-download"></i>
+                            <span>Export Data</span>
+                        </a>
+                        <a href="#" class="action-btn" data-page="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Abstracts Page -->
+        <section class="page" id="page-research">
+            <div class="page-header">
+                <h1>Research Abstracts</h1>
+                <p>Manage scientific research submissions</p>
+            </div>
+
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <select id="affiliationFilter">
+                        <option value="">All Affiliations</option>
+                        <option value="medicine">College of Medicine</option>
+                        <option value="pharmacy">College of Pharmacy</option>
+                        <option value="medical-sciences">College of Medical Sciences</option>
+                        <option value="alumni">Alumni</option>
+                        <option value="external">External</option>
+                    </select>
+                </div>
+                <button class="btn-export" data-action="export-research">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <table class="data-table full-width">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Email</th>
+                                <th>Affiliation</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="researchTable">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Innovation Abstracts Page -->
+        <section class="page" id="page-innovation">
+            <div class="page-header">
+                <h1>Innovation Abstracts</h1>
+                <p>Manage innovation submissions</p>
+            </div>
+
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <select id="innovationStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <button class="btn-export" data-action="export-innovation">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <table class="data-table full-width">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Innovator</th>
+                                <th>Email</th>
+                                <th>Affiliation</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="innovationTable">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- News & Announcements Page -->
+        <section class="page" id="page-news">
+            <div class="page-header">
+                <h1>News & Announcements</h1>
+                <p>Manage website news and announcements</p>
+            </div>
+
+            <div class="add-news-form card">
+                <div class="card-header">
+                    <h3><i class="fas fa-plus"></i> Add New Announcement</h3>
+                </div>
+                <div class="card-body">
+                    <form id="newsForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Title (English) *</label>
+                                <input type="text" id="newsTitle" placeholder="Announcement title" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Title (Arabic)</label>
+                                <input type="text" id="newsTitleAr" placeholder="عنوان الإعلان" dir="rtl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select id="newsType">
+                                <option value="news">News</option>
+                                <option value="announcement">Announcement</option>
+                                <option value="deadline">Deadline Reminder</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Content (English) *</label>
+                            <textarea id="newsContent" rows="4" placeholder="Write your announcement..."
+                                required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Content (Arabic)</label>
+                            <textarea id="newsContentAr" rows="4" placeholder="اكتب الإعلان بالعربية..."
+                                dir="rtl"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-paper-plane"></i> Publish
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-list"></i> Published Announcements</h3>
+                </div>
+                <div class="card-body">
+                    <div class="news-list" id="newsList">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Page -->
+        <section class="page" id="page-settings">
+            <div class="page-header">
+                <h1>Settings</h1>
+                <p>Manage system settings</p>
+            </div>
+
+            <div class="settings-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-calendar"></i> Event Settings</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="settingsForm">
+                            <div class="form-group">
+                                <label>Event Name (English)</label>
+                                <input type="text" id="event_name_en" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Event Name (Arabic)</label>
+                                <input type="text" id="event_name_ar" value="" dir="rtl">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Event Start Date</label>
+                                    <input type="date" id="event_start_date" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Event End Date</label>
+                                    <input type="date" id="event_end_date" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Submission Deadline</label>
+                                <input type="date" id="submission_deadline" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Email</label>
+                                <input type="email" id="contact_email" value="">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="submissions_open" checked>
+                                    Submissions Open
+                                </label>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Save Settings
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for viewing submission details -->
+    <div class="modal" id="submissionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Submission Details</h2>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-success" id="btnApprove">
+                    <i class="fas fa-check"></i> Approve
+                </button>
+                <button class="btn-danger" id="btnReject">
+                    <i class="fas fa-times"></i> Reject
+                </button>
+                <button class="btn-secondary" id="btnDownload">
+                    <i class="fas fa-download"></i> Download File
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+
+</html>

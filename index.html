@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRIF 2026 | Scientific Research & Innovation Forum</title>
+    <meta name="description"
+        content="Scientific Research and Innovation Forum 2026 - Igniting Minds: Shaping the Future. AlMaarefa University, 5-6 May 2026">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/32.jpg') center center / cover no-repeat;
+            opacity: 0.30;
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 15, 26, 0.85) 0%, rgba(30, 41, 59, 0.8) 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 2 !important;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            padding: 8px 16px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50px;
+            color: var(--white);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+            margin-left: 16px;
+        }
+
+        .lang-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* RTL Support - Enhanced */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Tajawal', 'Poppins', sans-serif;
+        }
+
+        body.rtl .header .container {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .nav-menu {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .nav {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .logo {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .hero-text {
+            text-align: right;
+        }
+
+        body.rtl .hero-grid {
+            direction: rtl;
+        }
+
+        body.rtl .hero-title {
+            text-align: right;
+        }
+
+        body.rtl .award-badge {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .hero-date {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .theme-quote {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        body.rtl .deadline-banner {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .deadline-info {
+            text-align: right;
+        }
+
+        body.rtl .hero-cta {
+            justify-content: flex-start;
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .btn {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .section-header {
+            text-align: center;
+        }
+
+        body.rtl .about-card {
+            text-align: center;
+        }
+
+        body.rtl .track-card {
+            text-align: right;
+        }
+
+        body.rtl .track-header {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .track-features li {
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        body.rtl .timeline-item {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .timeline-content {
+            text-align: right;
+        }
+
+        body.rtl .stat-card {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        body.rtl .contact-card {
+            text-align: right;
+        }
+
+        body.rtl .contact-icon {
+            margin-left: 16px;
+            margin-right: 0;
+        }
+
+        body.rtl .footer-grid {
+            direction: rtl;
+        }
+
+        body.rtl .footer-links {
+            text-align: right;
+        }
+
+        body.rtl .footer-bottom {
+            text-align: center;
+        }
+
+        body.rtl .lang-toggle {
+            margin-left: 0;
+            margin-right: 16px;
+        }
+
+        body.rtl .back-link {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .form-card {
+            text-align: right;
+        }
+
+        body.rtl .form-group label {
+            text-align: right;
+        }
+
+        body.rtl .radio-option {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .abstract-box h4 {
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        /* Hero Enhancements - More Professional */
+        .hero-title {
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-title .gradient-text {
+            text-shadow: none;
+        }
+
+        .award-badge {
+            animation: fadeInDown 0.8s ease, glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
+            }
+        }
+
+        .deadline-banner {
+            animation: fadeInUp 0.8s ease 0.4s both, borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                border-color: rgba(239, 68, 68, 0.3);
+            }
+
+            50% {
+                border-color: rgba(239, 68, 68, 0.6);
+            }
+        }
+
+        .hero-cta .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cta .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .hero-cta .btn:hover::before {
+            left: 100%;
+        }
+
+        .timer-item {
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timer-item span {
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Floating Animation for Visual */
+        .float-icon {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Science Background -->
+    <div class="science-bg">
+        <canvas id="scienceCanvas"></canvas>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 60 60" fill="none">
+                        <circle cx="30" cy="30" r="28" stroke="url(#grad)" stroke-width="2" />
+                        <circle cx="30" cy="30" r="8" fill="url(#grad)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5"
+                            transform="rotate(60 30 30)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5"
+                            transform="rotate(-60 30 30)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5" />
+                        <defs>
+                            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00d4ff" />
+                                <stop offset="100%" style="stop-color:#7c3aed" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">SRIF</span>
+                    <span class="logo-year">2026</span>
+                </div>
+            </a>
+            <nav class="nav">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-en="About" data-ar="عن المنتدى">About</a></li>
+                    <li><a href="#tracks" class="nav-link" data-en="Tracks" data-ar="المسارات">Tracks</a></li>
+                    <li><a href="#timeline" class="nav-link" data-en="Timeline" data-ar="الجدول الزمني">Timeline</a>
+                    </li>
+                    <li><a href="#contact" class="nav-link" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                </ul>
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                    <span class="lang-en">العربية</span>
+                    <span class="lang-ar" style="display:none;">English</span>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="container">
+                <!-- University Logo Banner -->
+                <div class="university-banner" style="text-align: center; margin-bottom: 40px;">
+                    <img src="images/r.webp" alt="AlMaarefa University"
+                        style="height: 80px; filter: brightness(0) invert(1); opacity: 0.9; margin-bottom: 16px;">
+                    <p
+                        style="color: rgba(255,255,255,0.7); font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">
+                        <span data-en="Presents" data-ar="تقدم">Presents</span>
+                    </p>
+                </div>
+
+                <div class="hero-grid">
+                    <div class="hero-text">
+                        <!-- Award Badge -->
+                        <div class="award-badge">
+                            <div class="award-star">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <span>High Quality Performers Will Be Awarded</span>
+                        </div>
+
+                        <div class="hero-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>5-6 May 2026</span>
+                            <span class="divider">|</span>
+                            <span>AlMaarefa University</span>
+                        </div>
+
+                        <h1 class="hero-title">
+                            Scientific Research
+                            <span class="gradient-text">&amp; Innovation Forum</span>
+                            <span class="year-badge">2026</span>
+                        </h1>
+
+                        <div class="hero-theme">
+                            <div class="theme-quote">
+                                <span class="quote-mark">"</span>
+                                <p class="theme-en">Igniting Minds: Shaping the Future</p>
+                                <p class="theme-ar">اضاءة الافكار: بلورة المستقبل</p>
+                                <span class="quote-mark">"</span>
+                            </div>
+                        </div>
+
+                        <div class="deadline-banner">
+                            <div class="deadline-icon">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                            <div class="deadline-info">
+                                <span class="deadline-label">Deadline for Submission</span>
+                                <strong class="deadline-date">18 April 2026</strong>
+                            </div>
+                            <div class="deadline-timer" id="countdownTimer">
+                                <div class="timer-item"><span id="days">00</span><small>Days</small></div>
+                                <div class="timer-item"><span id="hours">00</span><small>Hours</small></div>
+                                <div class="timer-item"><span id="mins">00</span><small>Mins</small></div>
+                            </div>
+                        </div>
+
+                        <div class="hero-cta">
+                            <a href="#tracks" class="btn btn-primary btn-glow">
+                                <i class="fas fa-paper-plane"></i> Submit Your Abstract
+                            </a>
+                            <a href="#about" class="btn btn-glass">
+                                <i class="fas fa-info-circle"></i> Learn More
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual">
+                        <div class="dna-helix">
+                            <div class="helix-strand strand-1"></div>
+                            <div class="helix-strand strand-2"></div>
+                        </div>
+                        <div class="floating-icons">
+                            <div class="float-icon icon-1"><i class="fas fa-microscope"></i></div>
+                            <div class="float-icon icon-2"><i class="fas fa-dna"></i></div>
+                            <div class="float-icon icon-3"><i class="fas fa-flask"></i></div>
+                            <div class="float-icon icon-4"><i class="fas fa-brain"></i></div>
+                            <div class="float-icon icon-5"><i class="fas fa-lightbulb"></i></div>
+                            <div class="float-icon icon-6"><i class="fas fa-atom"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path
+                    d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+                    fill="#ffffff" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-info-circle"></i> About The Forum</span>
+                <h2 class="section-title">Empowering <span class="highlight">Research Excellence</span></h2>
+                <p class="section-desc">Join us at AlMaarefa University for a premier gathering of researchers,
+                    innovators, and thought leaders dedicated to advancing scientific knowledge.</p>
+            </div>
+
+            <div class="about-cards">
+                <div class="about-card" data-aos="fade-up">
+                    <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Our Mission</h3>
+                    <p>Foster a culture of scientific inquiry and innovation, connecting brilliant minds to solve
+                        tomorrow's challenges.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-delay="100">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h3>Who Can Participate</h3>
+                    <p>Students, faculty, alumni, and researchers from AlMaarefa University and external institutions
+                        worldwide.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-delay="200">
+                    <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Awards & Recognition</h3>
+                    <p>High-quality performers will be awarded and outstanding abstracts may be considered for
+                        publication.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-delay="300">
+                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Networking</h3>
+                    <p>Connect with peers, mentors, and industry experts to expand your professional network.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracks Section -->
+    <section class="section tracks" id="tracks">
+        <div class="container">
+            <div class="section-header light">
+                <span class="section-badge"><i class="fas fa-flask"></i> Call for Abstracts</span>
+                <h2 class="section-title">Choose Your <span class="highlight">Track</span></h2>
+                <p class="section-desc">Select the track that best fits your submission and share your groundbreaking
+                    work with the scientific community.</p>
+            </div>
+
+            <div class="tracks-wrapper">
+                <!-- Scientific Research Track -->
+                <div class="track-card research-track">
+                    <div class="track-glow"></div>
+                    <div class="track-header">
+                        <div class="track-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <div class="track-badge">Track 1</div>
+                    </div>
+                    <h3 class="track-title">Scientific Research</h3>
+                    <p class="track-desc">Submit your original research findings across medical, pharmaceutical, and
+                        applied sciences.</p>
+
+                    <div class="presentation-types">
+                        <h4>Presentation Types</h4>
+                        <div class="type-cards">
+                            <div class="type-card">
+                                <i class="fas fa-image"></i>
+                                <span>Poster</span>
+                            </div>
+                            <div class="type-card">
+                                <i class="fas fa-microphone-alt"></i>
+                                <span>Oral</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="track-features">
+                        <li><i class="fas fa-check-circle"></i> Original Research Studies</li>
+                        <li><i class="fas fa-check-circle"></i> Case Studies & Reports</li>
+                        <li><i class="fas fa-check-circle"></i> Systematic Reviews</li>
+                        <li><i class="fas fa-check-circle"></i> Clinical Trials</li>
+                    </ul>
+
+                    <a href="submit-research.html" class="btn btn-track btn-research">
+                        <span>Submit Research Abstract</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Innovation Track -->
+                <div class="track-card innovation-track">
+                    <div class="track-glow"></div>
+                    <div class="track-header">
+                        <div class="track-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="track-badge">Track 2</div>
+                    </div>
+                    <h3 class="track-title">Innovation</h3>
+                    <p class="track-desc">Present your innovative ideas, inventions, and creative solutions to
+                        real-world challenges.</p>
+
+                    <div class="presentation-types">
+                        <h4>Presentation Types</h4>
+                        <div class="type-cards">
+                            <div class="type-card">
+                                <i class="fas fa-image"></i>
+                                <span>Poster</span>
+                            </div>
+                            <div class="type-card">
+                                <i class="fas fa-cogs"></i>
+                                <span>Prototype/Device</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="track-features">
+                        <li><i class="fas fa-check-circle"></i> Novel Inventions</li>
+                        <li><i class="fas fa-check-circle"></i> Healthcare Solutions</li>
+                        <li><i class="fas fa-check-circle"></i> Technology Applications</li>
+                        <li><i class="fas fa-check-circle"></i> Process Improvements</li>
+                    </ul>
+
+                    <a href="submit-innovation.html" class="btn btn-track btn-innovation">
+                        <span>Submit Innovation Abstract</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section timeline-section" id="timeline">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-calendar-alt"></i> Important Dates</span>
+                <h2 class="section-title">Event <span class="highlight">Timeline</span></h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-track"></div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-play"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">February 2026</span>
+                        <h4>Submission Opens</h4>
+                        <p>Start submitting your abstracts through our online portal</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot pulse"><i class="fas fa-clock"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">18 April 2026</span>
+                        <h4>Submission Deadline</h4>
+                        <p>Last day to submit your abstracts</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-envelope-open"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">25 April 2026</span>
+                        <h4>Acceptance Notification</h4>
+                        <p>Authors will be notified of acceptance</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-star"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">5-6 May 2026</span>
+                        <h4>Forum Days</h4>
+                        <p>Presentations, networking, and awards ceremony</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Expected Participants</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                    <div class="stat-number" data-count="2">0</div>
+                    <div class="stat-label">Research Tracks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-user-tie"></i></div>
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label">Expert Reviewers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="stat-number" data-count="10">0</div>
+                    <div class="stat-label">Awards Categories</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-envelope"></i> Get in Touch</span>
+                <h2 class="section-title">Contact <span class="highlight">Us</span></h2>
+                <p class="section-desc">Have questions? We're here to help you.</p>
+            </div>
+
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <h4>Email Us</h4>
+                    <a href="mailto:rs@um.edu.sa">rs@um.edu.sa</a>
+                    <p class="contact-note">We respond within 24 hours</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-university"></i></div>
+                    <h4>Location</h4>
+                    <p>AlMaarefa University</p>
+                    <p>Riyadh, Saudi Arabia</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-share-alt"></i></div>
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div
+                style="max-width: 700px; margin: 40px auto 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px;">
+                <h3 style="color: #fff; margin-bottom: 24px; text-align: center;">
+                    <i class="fas fa-paper-plane" style="color: var(--secondary);"></i>
+                    <span data-en="Send us a Message" data-ar="أرسل لنا رسالة">Send us a Message</span>
+                </h3>
+                <form id="contactForm" style="display: grid; gap: 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <input type="text" name="contactName" placeholder="Your Name" required
+                            style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.95rem;">
+                        <input type="email" name="contactEmail" placeholder="Your Email" required
+                            style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.95rem;">
+                    </div>
+                    <input type="text" name="contactSubject" placeholder="Subject"
+                        style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.95rem;">
+                    <textarea name="contactMessage" rows="4" placeholder="Your Message" required
+                        style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.95rem; resize: vertical;"></textarea>
+                    <button type="submit" class="btn btn-primary" id="contactSubmitBtn"
+                        style="justify-self: center; min-width: 200px;">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span>
+                    </button>
+                </form>
+                <p id="contactSuccess"
+                    style="display: none; text-align: center; color: #10b981; margin-top: 16px; font-size: 0.95rem;">
+                    <i class="fas fa-check-circle"></i> Message sent successfully!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path
+                    d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+                    fill="#ffffff" />
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-main">SRIF</span>
+                            <span class="logo-year">2026</span>
+                        </div>
+                    </div>
+                    <p>Scientific Research & Innovation Forum</p>
+                    <p class="tagline">"Igniting Minds: Shaping the Future"</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#tracks">Call for Abstracts</a></li>
+                        <li><a href="#timeline">Timeline</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Submit Abstract</h5>
+                    <ul>
+                        <li><a href="submit-research.html">Scientific Research</a></li>
+                        <li><a href="submit-innovation.html">Innovation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><a href="mailto:rs@um.edu.sa"><i class="fas fa-envelope"></i> rs@um.edu.sa</a></li>
+                        <li><i class="fas fa-university"></i> AlMaarefa University</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Scientific Research & Innovation Forum. AlMaarefa University. All rights reserved.</p>
+                <a href="admin/login.html"
+                    style="color: var(--gray-500); font-size: 0.8rem; margin-top: 8px; display: inline-block;">
+                    <i class="fas fa-lock"></i> Admin Panel
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
