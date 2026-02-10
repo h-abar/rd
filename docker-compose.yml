@@ -1,0 +1,63 @@
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:17-alpine
+    container_name: srif-db
+    restart: always
+    environment:
+      POSTGRES_DB: srif_2026
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-StrongPassword123!}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d srif_2026" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Node.js Application
+  app:
+    build: .
+    container_name: srif-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: srif_2026
+      DB_USER: postgres
+      DB_PASSWORD: ${DB_PASSWORD:-StrongPassword123!}
+      JWT_SECRET: ${JWT_SECRET:-srif2026-jwt-secret-change-me}
+      SESSION_SECRET: ${SESSION_SECRET:-srif2026-session-secret-change-me}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@um.edu.sa}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-srif2026admin}
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Database Initializer (runs once)
+  db-init:
+    build: .
+    container_name: srif-db-init
+    command: node scripts/init-db.js
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: srif_2026
+      DB_USER: postgres
+      DB_PASSWORD: ${DB_PASSWORD:-StrongPassword123!}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  uploads_data:
