@@ -92,54 +92,75 @@ function initNavigation() {
 }
 
 function initCountdown() {
-    const countdown = document.getElementById('countdown');
-    if (!countdown) return;
+    const countdownElement = document.getElementById('countdownTimer');
+    if (!countdownElement) return;
+
+    // Target Date: 5 May 2026
     const targetDate = new Date('May 5, 2026 09:00:00').getTime();
-    setInterval(() => {
+
+    function update() {
         const now = new Date().getTime();
         const diff = targetDate - now;
-        if (diff < 0) return;
-        document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-        document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-    }, 1000);
-}
 
-function initScrollAnimations() {
-    const options = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, options);
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        if (diff < 0) {
+            // Event started
+            document.getElementById('days').innerText = "00";
+            document.getElementById('hours').innerText = "00";
+            document.getElementById('mins').innerText = "00";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        const dElem = document.getElementById('days');
+        const hElem = document.getElementById('hours');
+        const mElem = document.getElementById('mins');
+
+        if (dElem) dElem.innerText = days.toString().padStart(2, '0');
+        if (hElem) hElem.innerText = hours.toString().padStart(2, '0');
+        if (mElem) mElem.innerText = minutes.toString().padStart(2, '0');
+    }
+
+    update(); // Run immediately
+    setInterval(update, 60000); // Update every minute
 }
 
 function initCounters() {
-    const counters = document.querySelectorAll('.counter-number');
+    const counters = document.querySelectorAll('.stat-number');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const target = parseInt(entry.target.dataset.target);
-                let count = 0;
-                const speed = 2000 / target;
+                const counter = entry.target;
+                const target = parseInt(counter.dataset.count);
+                if (isNaN(target)) return;
+
+                const duration = 2000; // 2 seconds
+                const frameDuration = 1000 / 60; // 60fps
+                const totalFrames = Math.round(duration / frameDuration);
+                let frame = 0;
+
+                const easeOutQuad = t => t * (2 - t);
+
                 const timer = setInterval(() => {
-                    count += Math.ceil(target / 100);
-                    if (count >= target) {
-                        entry.target.innerText = target;
+                    frame++;
+                    const progress = easeOutQuad(frame / totalFrames);
+                    const currentCount = Math.round(target * progress);
+
+                    if (frame === totalFrames) {
+                        counter.innerText = target; // Ensure exact final number
                         clearInterval(timer);
                     } else {
-                        entry.target.innerText = count;
+                        counter.innerText = currentCount;
                     }
-                }, 20);
-                observer.unobserve(entry.target);
+                }, frameDuration);
+
+                observer.unobserve(counter);
             }
         });
     }, { threshold: 0.5 });
+
     counters.forEach(c => observer.observe(c));
 }
 

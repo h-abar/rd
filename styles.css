@@ -523,6 +523,63 @@ section {
     line-height: 1.7;
 }
 
+/* Presentation Types Styling */
+.presentation-types {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.presentation-types h4 {
+    color: var(--gray-200);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.type-cards {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.type-card {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 80px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+}
+
+.type-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.type-card i {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    margin-bottom: 2px;
+}
+
+.type-card span {
+    font-size: 0.85rem;
+    color: #fff;
+    /* High contrast white */
+    font-weight: 500;
+}
+
 .track-features li {
     display: flex;
     align-items: center;
