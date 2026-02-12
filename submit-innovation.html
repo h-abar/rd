@@ -134,16 +134,16 @@
                         <div class="form-group">
                             <label data-en="Name of the Submitting Innovator" data-ar="اسم المبتكر المتقدم">Name of the
                                 Submitting Innovator <span class="required">*</span></label>
-                            <input type="text" class="form-control" name="author" placeholder="Enter your full name"
-                                data-placeholder-en="Enter your full name" data-placeholder-ar="أدخل اسمك الكامل"
-                                required>
+                            <input type="text" class="form-control" name="innovatorName"
+                                placeholder="Enter your full name" data-placeholder-en="Enter your full name"
+                                data-placeholder-ar="أدخل اسمك الكامل" required>
                         </div>
 
                         <div class="form-group">
                             <label data-en="Name of the Supervisor/Lead Mentor"
                                 data-ar="اسم المشرف / الموجه الرئيسي">Name of the Supervisor/Lead Mentor <span
                                     class="required">*</span></label>
-                            <input type="text" class="form-control" name="supervisor"
+                            <input type="text" class="form-control" name="mentorName"
                                 placeholder="Enter supervisor's/mentor's full name"
                                 data-placeholder-en="Enter supervisor's/mentor's full name"
                                 data-placeholder-ar="أدخل اسم المشرف الكامل" required>
@@ -152,7 +152,7 @@
                         <div class="form-group">
                             <label data-en="Names of Other Team Members" data-ar="أسماء أعضاء الفريق الآخرين">Names of
                                 Other Team Members</label>
-                            <textarea class="form-control" name="team" rows="3"
+                            <textarea class="form-control" name="teamMembers" rows="3"
                                 placeholder="List team members (one per line)"
                                 data-placeholder-en="List team members (one per line)"
                                 data-placeholder-ar="أدرج أعضاء الفريق (واحد في كل سطر)"></textarea>
@@ -207,7 +207,7 @@
                         <div class="form-group" id="externalInstitution" style="display: none;">
                             <label data-en="Institution Name & Specialization" data-ar="اسم المؤسسة والتخصص">Institution
                                 Name & Specialization <span class="required">*</span></label>
-                            <input type="text" class="form-control" name="institution"
+                            <input type="text" class="form-control" name="externalInstitution"
                                 placeholder="Enter your institution and specialization"
                                 data-placeholder-en="Enter your institution and specialization"
                                 data-placeholder-ar="أدخل اسم مؤسستك وتخصصك">
@@ -229,7 +229,7 @@
                         <div class="abstract-box">
                             <h4><i class="fas fa-question-circle"></i> <span data-en="Problem Statement & Objectives"
                                     data-ar="بيان المشكلة والأهداف">Problem Statement & Objectives</span></h4>
-                            <textarea class="form-control" name="background" rows="4" placeholder="..."
+                            <textarea class="form-control" name="problemStatement" rows="4" placeholder="..."
                                 data-placeholder-en="Describe the problem..."
                                 data-placeholder-ar="صف المشكلة التي تعالجها وأهداف ابتكارك..." required></textarea>
                         </div>
@@ -237,7 +237,7 @@
                         <div class="abstract-box">
                             <h4><i class="fas fa-cogs"></i> <span data-en="Innovation Description & Methodology"
                                     data-ar="وصف الابتكار والمنهجية">Innovation Description & Methodology</span></h4>
-                            <textarea class="form-control" name="methods" rows="4" placeholder="..."
+                            <textarea class="form-control" name="innovationDescription" rows="4" placeholder="..."
                                 data-placeholder-en="Describe your innovation..."
                                 data-placeholder-ar="صف ابتكارك، وكيف يعمل، والنهج المستخدم..." required></textarea>
                         </div>
@@ -245,7 +245,7 @@
                         <div class="abstract-box">
                             <h4><i class="fas fa-star"></i> <span data-en="Key Features & Benefits"
                                     data-ar="الميزات والفوائد الرئيسية">Key Features & Benefits</span></h4>
-                            <textarea class="form-control" name="results" rows="4" placeholder="..."
+                            <textarea class="form-control" name="keyFeatures" rows="4" placeholder="..."
                                 data-placeholder-en="Describe key features..."
                                 data-placeholder-ar="صف الميزات والفوائد المتوقعة من ابتكارك..." required></textarea>
                         </div>
@@ -253,7 +253,7 @@
                         <div class="abstract-box">
                             <h4><i class="fas fa-road"></i> <span data-en="Implementation & Future Scope"
                                     data-ar="التنفيذ والنطاق المستقبلي">Implementation & Future Scope</span></h4>
-                            <textarea class="form-control" name="conclusion" rows="4" placeholder="..."
+                            <textarea class="form-control" name="implementation" rows="4" placeholder="..."
                                 data-placeholder-en="Describe implementation plans..."
                                 data-placeholder-ar="صف خطط التنفيذ وإمكانيات التطوير المستقبلية..."
                                 required></textarea>
