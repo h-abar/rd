@@ -960,6 +960,95 @@ section {
     }
 }
 
+/* --- Section Styling Corrections --- */
+
+/* Ensure Contact Section has proper spacing/bg if needed */
+.contact-section {
+    padding: 100px 0;
+    background: var(--white);
+    position: relative;
+}
+
+/* Form Controls - High Visibility */
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--gray-800);
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--secondary);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
+}
+
+.form-control::placeholder {
+    color: var(--gray-400);
+}
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Button Submit Styling */
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    background: var(--gradient-primary);
+    border: none;
+    color: var(--white);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    transition: var(--transition);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+}
+
+/* Tracks Text Contrast Fix */
+.track-desc {
+    color: rgba(255, 255, 255, 0.9);
+    /* Increased contrast */
+    margin-bottom: 24px;
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
+.track-features li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    color: rgba(255, 255, 255, 0.95);
+    /* High contrast */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 500;
+}
+
+/* Icon colors in Tracks */
+.track-features i {
+    color: var(--secondary);
+    font-size: 1.1rem;
+}
+
 @media (max-width: 480px) {
     .hero-title {
         font-size: 1.8rem !important;
