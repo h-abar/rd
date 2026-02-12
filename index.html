@@ -14,274 +14,7 @@
     <link rel="stylesheet" href="styles.css?v=2.5">
     <style>
         /* Custom Styles & Overrides */
-
-        /* Language Toggle */
-        .lang-toggle {
-            padding: 8px 16px;
-            background: var(--gradient-primary);
-            border: none;
-            border-radius: 50px;
-            color: var(--white);
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s ease;
-            margin-left: 16px;
-        }
-
-        .lang-toggle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-        }
-
-        /* RTL Support - Enhanced */
-        body.rtl {
-            direction: rtl;
-            text-align: right;
-            font-family: 'Tajawal', 'Poppins', sans-serif;
-        }
-
-        body.rtl .header .container {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .nav-menu {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .nav {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .logo {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .hero-text {
-            text-align: right;
-        }
-
-        body.rtl .hero-grid {
-            direction: rtl;
-        }
-
-        body.rtl .hero-title {
-            text-align: right;
-        }
-
-        body.rtl .award-badge {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .hero-date {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .theme-quote {
-            flex-direction: row-reverse;
-            text-align: right;
-        }
-
-        body.rtl .deadline-banner {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .deadline-info {
-            text-align: right;
-        }
-
-        body.rtl .hero-cta {
-            justify-content: flex-start;
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .btn {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .section-header {
-            text-align: center;
-        }
-
-        body.rtl .about-card {
-            text-align: center;
-        }
-
-        body.rtl .track-card {
-            text-align: right;
-        }
-
-        body.rtl .track-header {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .track-features li {
-            flex-direction: row-reverse;
-            justify-content: flex-end;
-        }
-
-        body.rtl .timeline-item {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .timeline-content {
-            text-align: right;
-        }
-
-        body.rtl .stat-card {
-            flex-direction: row-reverse;
-            text-align: right;
-        }
-
-        body.rtl .contact-card {
-            text-align: right;
-        }
-
-        body.rtl .contact-icon {
-            margin-left: 16px;
-            margin-right: 0;
-        }
-
-        body.rtl .footer-grid {
-            direction: rtl;
-        }
-
-        body.rtl .footer-links {
-            text-align: right;
-        }
-
-        body.rtl .footer-bottom {
-            text-align: center;
-        }
-
-        body.rtl .lang-toggle {
-            margin-left: 0;
-            margin-right: 16px;
-        }
-
-        body.rtl .back-link {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .form-card {
-            text-align: right;
-        }
-
-        body.rtl .form-group label {
-            text-align: right;
-        }
-
-        body.rtl .radio-option {
-            flex-direction: row-reverse;
-        }
-
-        body.rtl .abstract-box h4 {
-            flex-direction: row-reverse;
-            justify-content: flex-end;
-        }
-
-        /* Hero Enhancements - More Professional */
-        .hero-title {
-            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-title .gradient-text {
-            text-shadow: none;
-        }
-
-        .award-badge {
-            animation: fadeInDown 0.8s ease, glowPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-            }
-
-            50% {
-                box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
-            }
-        }
-
-        .deadline-banner {
-            animation: fadeInUp 0.8s ease 0.4s both, borderGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes borderGlow {
-
-            0%,
-            100% {
-                border-color: rgba(239, 68, 68, 0.3);
-            }
-
-            50% {
-                border-color: rgba(239, 68, 68, 0.6);
-            }
-        }
-
-        .hero-cta .btn {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-cta .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .hero-cta .btn:hover::before {
-            left: 100%;
-        }
-
-        .timer-item {
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .timer-item span {
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-        }
-
-        /* Floating Animation for Visual */
-        .float-icon {
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .hero-visual::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.5;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.8;
-            }
-        }
+        /* All animations and RTL support are now handled in styles.css */
     </style>
 </head>
 
@@ -666,31 +399,34 @@
             </div>
 
             <!-- Contact Form -->
-            <div
-                style="max-width: 700px; margin: 40px auto 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px;">
-                <h3 style="color: #fff; margin-bottom: 24px; text-align: center;">
-                    <i class="fas fa-paper-plane" style="color: var(--secondary);"></i>
+            <div class="form-card">
+                <h3 class="form-title">
+                    <i class="fas fa-paper-plane"></i>
                     <span data-en="Send us a Message" data-ar="أرسل لنا رسالة">Send us a Message</span>
                 </h3>
-                <form id="contactForm" style="display: grid; gap: 16px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                        <input type="text" name="contactName" placeholder="Your Name" required
-                            style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.95rem;">
-                        <input type="email" name="contactEmail" placeholder="Your Email" required
-                            style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.95rem;">
+                <form id="contactForm" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="contactName" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="contactEmail" class="form-control" placeholder="Your Email"
+                                required>
+                        </div>
                     </div>
-                    <input type="text" name="contactSubject" placeholder="Subject"
-                        style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.95rem;">
-                    <textarea name="contactMessage" rows="4" placeholder="Your Message" required
-                        style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.95rem; resize: vertical;"></textarea>
-                    <button type="submit" class="btn btn-primary" id="contactSubmitBtn"
-                        style="justify-self: center; min-width: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="contactSubject" class="form-control" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="contactMessage" class="form-control" rows="4" placeholder="Your Message"
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" id="contactSubmitBtn">
                         <i class="fas fa-paper-plane"></i>
                         <span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span>
                     </button>
                 </form>
-                <p id="contactSuccess"
-                    style="display: none; text-align: center; color: #10b981; margin-top: 16px; font-size: 0.95rem;">
+                <p id="contactSuccess" class="success-message">
                     <i class="fas fa-check-circle"></i> Message sent successfully!
                 </p>
             </div>
