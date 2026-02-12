@@ -11,11 +11,563 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2.8">
+    <link rel="stylesheet" href="styles.css?v=2.9">
     <style>
         /* Custom Styles & Overrides */
         /* All animations and RTL support are now handled in styles.css */
     </style>
+</head>
+
+<body>
+    <!-- Animated Science Background -->
+    <div class="science-bg">
+        <canvas id="scienceCanvas"></canvas>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 60 60" fill="none">
+                        <circle cx="30" cy="30" r="28" stroke="url(#grad)" stroke-width="2" />
+                        <circle cx="30" cy="30" r="8" fill="url(#grad)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5"
+                            transform="rotate(60 30 30)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5"
+                            transform="rotate(-60 30 30)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5" />
+                        <defs>
+                            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00d4ff" />
+                                <stop offset="100%" style="stop-color:#7c3aed" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main" data-en="SRIF" data-ar="منتدى البحث العلمي">SRIF</span>
+                    <span class="logo-year">2026</span>
+                </div>
+            </a>
+            <nav class="nav">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-en="About" data-ar="عن المنتدى">About</a></li>
+                    <li><a href="#tracks" class="nav-link" data-en="Tracks" data-ar="المسارات">Tracks</a></li>
+                    <li><a href="#timeline" class="nav-link" data-en="Timeline" data-ar="الجدول الزمني">Timeline</a>
+                    </li>
+                    <li><a href="#contact" class="nav-link" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                </ul>
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                    <span class="lang-en">العربية</span>
+                    <span class="lang-ar" style="display:none;">English</span>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="container">
+
+
+                <div class="hero-grid">
+                    <div class="hero-text">
+                        <!-- Award Badge -->
+                        <div class="award-badge">
+                            <div class="award-star">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <span data-en="High Quality Performers Will Be Awarded"
+                                data-ar="سيتم تكريم أصحاب الأداء المتميز">High Quality Performers Will Be Awarded</span>
+                        </div>
+
+                        <div class="hero-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span data-en="5-6 May 2026" data-ar="5-6 مايو 2026">5-6 May 2026</span>
+                            <span class="divider">|</span>
+                            <span data-en="AlMaarefa University" data-ar="جامعة المعرفة">AlMaarefa University</span>
+                        </div>
+
+                        <h1 class="hero-title">
+                            <span data-en="Scientific Research" data-ar="البحث العلمي">Scientific Research</span>
+                            <span class="gradient-text" data-en="& Innovation Forum" data-ar="ومنتدى الابتكار">&
+                                Innovation Forum</span>
+                            <span class="year-badge">2026</span>
+                        </h1>
+
+                        <div class="hero-theme">
+                            <div class="theme-quote">
+                                <span class="quote-mark">"</span>
+                                <p class="theme-en" data-en="Igniting Minds: Shaping the Future"
+                                    data-ar="إضاءة العقول: تشكيل المستقبل">Igniting Minds: Shaping the Future</p>
+                                <span class="quote-mark">"</span>
+                            </div>
+                        </div>
+
+                        <div class="deadline-banner">
+                            <div class="deadline-icon">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                            <div class="deadline-info">
+                                <span class="deadline-label" data-en="Deadline for Submission"
+                                    data-ar="الموعد النهائي للتقديم">Deadline for Submission</span>
+                                <strong class="deadline-date" data-en="18 April 2026" data-ar="18 أبريل 2026">18 April
+                                    2026</strong>
+                            </div>
+                            <div class="deadline-timer" id="countdownTimer">
+                                <div class="timer-item"><span id="days">00</span><small data-en="Days"
+                                        data-ar="أيام">Days</small></div>
+                                <div class="timer-item"><span id="hours">00</span><small data-en="Hours"
+                                        data-ar="ساعات">Hours</small></div>
+                                <div class="timer-item"><span id="mins">00</span><small data-en="Mins"
+                                        data-ar="دقيقة">Mins</small></div>
+                            </div>
+                        </div>
+
+                        <div class="hero-cta">
+                            <a href="#tracks" class="btn btn-primary btn-glow">
+                                <i class="fas fa-paper-plane"></i> <span data-en="Submit Your Abstract"
+                                    data-ar="قدم ملخصك">Submit Your Abstract</span>
+                            </a>
+                            <a href="#about" class="btn btn-glass">
+                                <i class="fas fa-info-circle"></i> <span data-en="Learn More"
+                                    data-ar="اقرأ المزيد">Learn More</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual">
+                        <!-- Professional Image replacing floating icons -->
+                        <div class="hero-img-wrapper">
+                            <img src="images/unnamed.webp" alt="Scientific Research Innovation" class="hero-main-img">
+                            <div class="img-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path
+                    d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+                    fill="#ffffff" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-info-circle"></i> <span data-en="About The Forum"
+                        data-ar="عن المنتدى">About The Forum</span></span>
+                <h2 class="section-title"><span data-en="Empowering" data-ar="تمكين">Empowering</span> <span
+                        class="highlight" data-en="Research Excellence" data-ar="التميز البحثي">Research
+                        Excellence</span></h2>
+                <p class="section-desc"
+                    data-en="Join us at AlMaarefa University for a premier gathering of researchers, innovators, and thought leaders dedicated to advancing scientific knowledge."
+                    data-ar="انضم إلينا في جامعة المعرفة في تجمع رائد للباحثين والمبتكرين وقادة الفكر المكرسين لتطوير المعرفة العلمية.">
+                    Join us at AlMaarefa University for a premier gathering of researchers,
+                    innovators, and thought leaders dedicated to advancing scientific knowledge.</p>
+            </div>
+
+            <div class="about-cards">
+                <div class="about-card" data-aos="fade-up">
+                    <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3 data-en="Our Mission" data-ar="رسالتنا">Our Mission</h3>
+                    <p data-en="Foster a culture of scientific inquiry and innovation, connecting brilliant minds to solve tomorrow's challenges."
+                        data-ar="تعزيز ثقافة الاستقصاء العلمي والابتكار، وربط العقول اللامعة لحل تحديات الغد.">Foster a
+                        culture of scientific inquiry and innovation, connecting brilliant minds to solve
+                        tomorrow's challenges.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-delay="100">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h3 data-en="Who Can Participate" data-ar="من يمكنه المشاركة">Who Can Participate</h3>
+                    <p data-en="Students, faculty, alumni, and researchers from AlMaarefa University and external institutions worldwide."
+                        data-ar="الطلاب، وأعضاء هيئة التدريس، والخريجون، والباحثون من جامعة المعرفة والمؤسسات الخارجية حول العالم.">
+                        Students, faculty, alumni, and researchers from AlMaarefa University and external institutions
+                        worldwide.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-delay="200">
+                    <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                    <h3 data-en="Awards & Recognition" data-ar="الجوائز والتكريم">Awards & Recognition</h3>
+                    <p data-en="High-quality performers will be awarded and outstanding abstracts may be considered for publication."
+                        data-ar="سيتم تكريم أصحاب الأداء المتميز وقد يتم النظر في الملخصات المتميزة للنشر.">High-quality
+                        performers will be awarded and outstanding abstracts may be considered for
+                        publication.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-delay="300">
+                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3 data-en="Networking" data-ar="التواصل">Networking</h3>
+                    <p data-en="Connect with peers, mentors, and industry experts to expand your professional network."
+                        data-ar="تواصل مع الزملاء والموجهين وخبراء الصناعة لتوسيع شبكتك المهنية.">Connect with peers,
+                        mentors, and industry experts to expand your professional network.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracks Section -->
+    <section class="section tracks" id="tracks">
+        <div class="container">
+            <div class="section-header light">
+                <span class="section-badge"><i class="fas fa-flask"></i> <span data-en="Call for Abstracts"
+                        data-ar="دعوة لتقديم الملخصات">Call for Abstracts</span></span>
+                <h2 class="section-title"><span data-en="Choose Your" data-ar="اختر">Choose Your</span> <span
+                        class="highlight" data-en="Track" data-ar="مسارك">Track</span></h2>
+                <p class="section-desc"
+                    data-en="Select the track that best fits your submission and share your groundbreaking work with the scientific community."
+                    data-ar="اختر المسار الذي يناسب مشاركتك وشارك عملك الرائد مع المجتمع العلمي.">Select the track that
+                    best fits your submission and share your groundbreaking
+                    work with the scientific community.</p>
+            </div>
+
+            <div class="tracks-wrapper">
+                <!-- Scientific Research Track -->
+                <div class="track-card research-track">
+                    <div class="track-glow"></div>
+                    <div class="track-header">
+                        <div class="track-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <div class="track-badge" data-en="Track 1" data-ar="المسار 1">Track 1</div>
+                    </div>
+                    <h3 class="track-title" data-en="Scientific Research" data-ar="البحث العلمي">Scientific Research
+                    </h3>
+                    <p class="track-desc"
+                        data-en="Submit your original research findings across medical, pharmaceutical, and applied sciences."
+                        data-ar="قدم نتائج أبحاثك الأصلية في العلوم الطبية والصيدلانية والتطبيقية.">Submit your original
+                        research findings across medical, pharmaceutical, and
+                        applied sciences.</p>
+
+                    <div class="presentation-types">
+                        <h4 data-en="Presentation Types" data-ar="أنواع العرض">Presentation Types</h4>
+                        <div class="type-cards">
+                            <div class="type-card">
+                                <i class="fas fa-image"></i>
+                                <span data-en="Poster" data-ar="ملصق">Poster</span>
+                            </div>
+                            <div class="type-card">
+                                <i class="fas fa-microphone-alt"></i>
+                                <span data-en="Oral" data-ar="شفهي">Oral</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="track-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-en="Original Research Studies"
+                                data-ar="دراسات بحثية أصلية">Original Research Studies</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-en="Case Studies & Reports"
+                                data-ar="دراسات حالة وتقارير">Case Studies & Reports</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-en="Systematic Reviews"
+                                data-ar="مراجعات منهجية">Systematic Reviews</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-en="Clinical Trials"
+                                data-ar="تجارب سريرية">Clinical Trials</span></li>
+                    </ul>
+
+                    <a href="submit-research.html" class="btn btn-track btn-research">
+                        <span data-en="Submit Research Abstract" data-ar="تقديم ملخص بحثي">Submit Research
+                            Abstract</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Innovation Track -->
+                <div class="track-card innovation-track">
+                    <div class="track-glow"></div>
+                    <div class="track-header">
+                        <div class="track-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="track-badge" data-en="Track 2" data-ar="المسار 2">Track 2</div>
+                    </div>
+                    <h3 class="track-title" data-en="Innovation" data-ar="الابتكار">Innovation</h3>
+                    <p class="track-desc"
+                        data-en="Present your innovative ideas, inventions, and creative solutions to real-world challenges."
+                        data-ar="اعرض أفكارك المبتكرة واختراعاتك وحلولك الإبداعية لتحديات العالم الحقيقي.">Present your
+                        innovative ideas, inventions, and creative solutions to
+                        real-world challenges.</p>
+
+                    <div class="presentation-types">
+                        <h4 data-en="Presentation Types" data-ar="أنواع العرض">Presentation Types</h4>
+                        <div class="type-cards">
+                            <div class="type-card">
+                                <i class="fas fa-image"></i>
+                                <span data-en="Poster" data-ar="ملصق">Poster</span>
+                            </div>
+                            <div class="type-card">
+                                <i class="fas fa-cogs"></i>
+                                <span data-en="Prototype/Device" data-ar="نموذج أولي/جهاز">Prototype/Device</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="track-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-en="Novel Inventions"
+                                data-ar="اختراعات جديدة">Novel Inventions</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-en="Healthcare Solutions"
+                                data-ar="حلول الرعاية الصحية">Healthcare Solutions</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-en="Technology Applications"
+                                data-ar="تطبيقات التكنولوجيا">Technology Applications</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-en="Process Improvements"
+                                data-ar="تحسين العمليات">Process Improvements</span></li>
+                    </ul>
+
+                    <a href="submit-innovation.html" class="btn btn-track btn-innovation">
+                        <span data-en="Submit Innovation Abstract" data-ar="تقديم ملخص ابتكار">Submit Innovation
+                            Abstract</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section timeline-section" id="timeline">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-calendar-alt"></i> <span data-en="Important Dates"
+                        data-ar="تواريخ مهمة">Important Dates</span></span>
+                <h2 class="section-title"><span data-en="Event" data-ar="جدول">Event</span> <span class="highlight"
+                        data-en="Timeline" data-ar="الفعاليات">Timeline</span></h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-track"></div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-play"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date" data-en="February 2026" data-ar="فبراير 2026">February 2026</span>
+                        <h4 data-en="Submission Opens" data-ar="فتح باب التقديم">Submission Opens</h4>
+                        <p data-en="Start submitting your abstracts through our online portal"
+                            data-ar="ابدأ بتقديم ملخصاتك عبر بوابتنا الإلكترونية">Start submitting your abstracts
+                            through our online portal</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot pulse"><i class="fas fa-clock"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date" data-en="18 April 2026" data-ar="18 أبريل 2026">18 April 2026</span>
+                        <h4 data-en="Submission Deadline" data-ar="الموعد النهائي للتقديم">Submission Deadline</h4>
+                        <p data-en="Last day to submit your abstracts" data-ar="آخر يوم لتقديم ملخصاتك">Last day to
+                            submit your abstracts</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-envelope-open"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date" data-en="25 April 2026" data-ar="25 أبريل 2026">25 April 2026</span>
+                        <h4 data-en="Acceptance Notification" data-ar="إشعار القبول">Acceptance Notification</h4>
+                        <p data-en="Authors will be notified of acceptance" data-ar="سيتم إخطار المؤلفين بالقبول">
+                            Authors will be notified of acceptance</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-star"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date" data-en="5-6 May 2026" data-ar="5-6 مايو 2026">5-6 May 2026</span>
+                        <h4 data-en="Forum Days" data-ar="أيام المنتدى">Forum Days</h4>
+                        <p data-en="Presentations, networking, and awards ceremony"
+                            data-ar="العروض التقديمية، التواصل، وحفل توزيع الجوائز">Presentations, networking, and
+                            awards ceremony</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label" data-en="Expected Participants" data-ar="مشارك متوقع">Expected Participants
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                    <div class="stat-number" data-count="2">0</div>
+                    <div class="stat-label" data-en="Research Tracks" data-ar="مسارات بحثية">Research Tracks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-user-tie"></i></div>
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label" data-en="Expert Reviewers" data-ar="محكم خبير">Expert Reviewers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="stat-number" data-count="10">0</div>
+                    <div class="stat-label" data-en="Awards Categories" data-ar="فئات الجوائز">Awards Categories</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-envelope"></i> <span data-en="Get in Touch"
+                        data-ar="تواصل معنا">Get in Touch</span></span>
+                <h2 class="section-title"><span data-en="Contact" data-ar="اتصل">Contact</span> <span class="highlight"
+                        data-en="Us" data-ar="بنا">Us</span></h2>
+                <p class="section-desc" data-en="Have questions? We're here to help you."
+                    data-ar="لديك أسئلة؟ نحن هنا لمساعدتك.">Have questions? We're here to help you.</p>
+            </div>
+
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <h4 data-en="Email Us" data-ar="راسلنا عبر البريد الإلكتروني">Email Us</h4>
+                    <a href="mailto:rs@um.edu.sa">rs@um.edu.sa</a>
+                    <p class="contact-note" data-en="We respond within 24 hours" data-ar="نرد في غضون 24 ساعة">We
+                        respond within 24 hours</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-university"></i></div>
+                    <h4 data-en="Location" data-ar="الموقع">Location</h4>
+                    <p data-en="AlMaarefa University" data-ar="جامعة المعرفة">AlMaarefa University</p>
+                    <p data-en="Riyadh, Saudi Arabia" data-ar="الرياض، المملكة العربية السعودية">Riyadh, Saudi Arabia
+                    </p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-share-alt"></i></div>
+                    <h4 data-en="Follow Us" data-ar="تابعنا">Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="form-card">
+                <h3 class="form-title">
+                    <i class="fas fa-paper-plane"></i>
+                    <span data-en="Send us a Message" data-ar="أرسل لنا رسالة">Send us a Message</span>
+                </h3>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="contactName" class="form-control" placeholder="Your Name" required
+                                data-placeholder-en="Your Name" data-placeholder-ar="اسمك">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="contactEmail" class="form-control" placeholder="Your Email"
+                                required data-placeholder-en="Your Email" data-placeholder-ar="بريدك الإلكتروني">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="contactSubject" class="form-control" placeholder="Subject"
+                            data-placeholder-en="Subject" data-placeholder-ar="الموضوع">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="contactMessage" class="form-control" rows="4" placeholder="Your Message"
+                            required data-placeholder-en="Your Message" data-placeholder-ar="رسالتك"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" id="contactSubmitBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span>
+                    </button>
+                </form>
+                <p id="contactSuccess" class="success-message">
+                    <i class="fas fa-check-circle"></i> <span data-en="Message sent successfully!"
+                        data-ar="تم إرسال الرسالة بنجاح!">Message sent successfully!</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path
+                    d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+                    fill="#ffffff" />
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-main" data-en="SRIF" data-ar="منتدى البحث العلمي">SRIF</span>
+                            <span class="logo-year">2026</span>
+                        </div>
+                    </div>
+                    <p data-en="Scientific Research & Innovation Forum" data-ar="منتدى البحث العلمي والابتكار">
+                        Scientific Research & Innovation Forum</p>
+                    <p class="tagline" data-en='"Igniting Minds: Shaping the Future"'
+                        data-ar='"إضاءة العقول: تشكيل المستقبل"'>"Igniting Minds: Shaping the Future"</p>
+                </div>
+                <div class="footer-links">
+                    <h5 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h5>
+                    <ul>
+                        <li><a href="#about" data-en="About" data-ar="عن المنتدى">About</a></li>
+                        <li><a href="#tracks" data-en="Call for Abstracts" data-ar="دعوة لتقديم الملخصات">Call for
+                                Abstracts</a></li>
+                        <li><a href="#timeline" data-en="Timeline" data-ar="الجدول الزمني">Timeline</a></li>
+                        <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5 data-en="Submit Abstract" data-ar="تقديم ملخص">Submit Abstract</h5>
+                    <ul>
+                        <li><a href="submit-research.html" data-en="Scientific Research"
+                                data-ar="البحث العلمي">Scientific Research</a></li>
+                        <li><a href="submit-innovation.html" data-en="Innovation" data-ar="الابتكار">Innovation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5 data-en="Contact" data-ar="اتصل">Contact</h5>
+                    <ul>
+                        <li><a href="mailto:rs@um.edu.sa"><i class="fas fa-envelope"></i> rs@um.edu.sa</a></li>
+                        <li><i class="fas fa-university"></i> <span data-en="AlMaarefa University"
+                                data-ar="جامعة المعرفة">AlMaarefa University</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-en="&copy; 2026 Scientific Research & Innovation Forum. AlMaarefa University. All rights reserved."
+                    data-ar="&copy; 2026 منتدى البحث العلمي والابتكار. جامعة المعرفة. جميع الحقوق محفوظة.">&copy; 2026
+                    Scientific Research & Innovation Forum. AlMaarefa University. All rights reserved.</p>
+                <a href="admin/login.html"
+                    style="color: var(--gray-500); font-size: 0.8rem; margin-top: 8px; display: inline-block;">
+                    <i class="fas fa-lock"></i> <span data-en="Admin Panel" data-ar="لوحة التحكم">Admin Panel</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+<meta name="description"
+    content="Scientific Research and Innovation Forum 2026 - Igniting Minds: Shaping the Future. AlMaarefa University, 5-6 May 2026">
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css?v=2.8">
+<style>
+    /* Custom Styles & Overrides */
+    /* All animations and RTL support are now handled in styles.css */
+</style>
 </head>
 
 <body>
