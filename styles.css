@@ -1133,3 +1133,172 @@ textarea.form-control {
         font-size: 2.5rem;
     }
 }
+
+/* --- Added: Dynamic Hero Animations & Language Toggle Style --- */
+
+/* 1. Premium Language Toggle */
+.lang-toggle {
+    margin-left: 20px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 50px;
+    background: var(--gradient-primary);
+    color: var(--white);
+    font-family: inherit;
+    /* Use Tajawal/Poppins based on lang */
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.25);
+    position: relative;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.5px;
+}
+
+.lang-toggle:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.35);
+    background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+}
+
+.lang-toggle:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* RTL Adjustments for Toggle */
+body.rtl .lang-toggle {
+    margin-left: 0;
+    margin-right: 20px;
+}
+
+/* 2. Hero Entrance & Floating Animations */
+@keyframes fadeInUpSmooth {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatInfinite {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Apply Entrance Animation to Hero Elements */
+.hero-content {
+    /* Ensure content is visible if animation fails, handled by fill-mode */
+}
+
+/* Staggered entrance for hero text elements */
+.award-badge,
+.hero-date,
+.hero-title,
+.hero-theme,
+.deadline-banner,
+.hero-cta {
+    opacity: 0;
+    /* Important: Start invisible */
+    animation: fadeInUpSmooth 0.8s ease-out forwards;
+}
+
+.award-badge {
+    animation-delay: 0.2s;
+}
+
+.hero-date {
+    animation-delay: 0.4s;
+}
+
+.hero-title {
+    animation-delay: 0.6s;
+}
+
+.hero-theme {
+    animation-delay: 0.8s;
+}
+
+.deadline-banner {
+    animation-delay: 1.0s;
+}
+
+.hero-cta {
+    animation-delay: 1.2s;
+}
+
+/* DNA & Floating Icons Animation */
+.hero-visual {
+    opacity: 0;
+    animation: fadeInUpSmooth 1s ease-out 0.5s forwards;
+    /* Delay visual slightly */
+}
+
+.floating-icons .float-icon {
+    animation: floatInfinite 5s ease-in-out infinite;
+    /* Reset transform from previous styles if any */
+}
+
+/* Stagger floating movement so they don't move in unison */
+.float-icon:nth-child(1) {
+    animation-delay: 0s;
+    animation-duration: 6s;
+}
+
+.float-icon:nth-child(2) {
+    animation-delay: 2.5s;
+    animation-duration: 5.5s;
+}
+
+.float-icon:nth-child(3) {
+    animation-delay: 1s;
+    animation-duration: 7s;
+}
+
+.float-icon:nth-child(4) {
+    animation-delay: 3s;
+    animation-duration: 5s;
+}
+
+.float-icon:nth-child(5) {
+    animation-delay: 1.5s;
+    animation-duration: 6.5s;
+}
+
+/* Pulse effect for Deadline Banner */
+.deadline-banner {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Base border */
+    /* animation defined above handles opacity entry, add pulse separately if needed, 
+       but let's keep it simple to avoid conflict */
+}
+
+/* Ensure mobile toggle is visible on small screens */
+@media (max-width: 900px) {
+    .mobile-toggle {
+        display: flex;
+        /* Ensure it's flex */
+    }
+
+    .lang-toggle {
+        display: none;
+        /* Hide in header, show in menu if moved */
+    }
+
+    /* If we want lang toggle in mobile menu, we need JS to move it or clone it. 
+       For now, let's keep it simple. */
+}
