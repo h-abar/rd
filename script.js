@@ -127,6 +127,19 @@ function initCountdown() {
     setInterval(update, 60000); // Update every minute
 }
 
+function initScrollAnimations() {
+    const options = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, options);
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
 function initCounters() {
     const counters = document.querySelectorAll('.stat-number');
     const observer = new IntersectionObserver((entries) => {
