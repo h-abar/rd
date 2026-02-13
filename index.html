@@ -57,6 +57,8 @@
                     <li><a href="#tracks" class="nav-link" data-en="Tracks" data-ar="المسارات">Tracks</a></li>
                     <li><a href="#timeline" class="nav-link" data-en="Timeline" data-ar="الجدول الزمني">Timeline</a>
                     </li>
+                    <li><a href="#news" class="nav-link" data-en="News" data-ar="الأخبار">News</a></li>
+                    <li><a href="#gallery" class="nav-link" data-en="Gallery" data-ar="المعرض">Gallery</a></li>
                     <li><a href="#contact" class="nav-link" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
                 </ul>
                 <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
@@ -411,6 +413,64 @@
             </div>
         </div>
     </section>
+
+    <!-- News & Announcements Section -->
+    <section class="section news-section" id="news">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-newspaper"></i> <span data-en="Latest News"
+                        data-ar="آخر الأخبار">Latest News</span></span>
+                <h2 class="section-title"><span data-en="News &" data-ar="الأخبار">News &</span> <span
+                        class="gradient-text" data-en="Announcements" data-ar="والإعلانات">Announcements</span></h2>
+            </div>
+            <div class="news-grid" id="publicNewsList">
+                <div class="news-loading" style="text-align:center;padding:60px;color:#64748b;">
+                    <i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
+                    <span data-en="Loading news..." data-ar="جاري تحميل الأخبار...">Loading news...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="section gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-images"></i> <span data-en="Photo Gallery"
+                        data-ar="معرض الصور">Photo Gallery</span></span>
+                <h2 class="section-title"><span data-en="Event" data-ar="معرض">Event</span> <span class="gradient-text"
+                        data-en="Gallery" data-ar="الصور">Gallery</span></h2>
+            </div>
+            <div class="gallery-filter" id="galleryFilter">
+                <button class="gallery-filter-btn active" data-category="all" data-en="All" data-ar="الكل">All</button>
+                <button class="gallery-filter-btn" data-category="event" data-en="Event"
+                    data-ar="الفعالية">Event</button>
+                <button class="gallery-filter-btn" data-category="research" data-en="Research"
+                    data-ar="البحث">Research</button>
+                <button class="gallery-filter-btn" data-category="innovation" data-en="Innovation"
+                    data-ar="الابتكار">Innovation</button>
+                <button class="gallery-filter-btn" data-category="ceremony" data-en="Ceremony"
+                    data-ar="الحفل">Ceremony</button>
+            </div>
+            <div class="public-gallery-grid" id="publicGalleryGrid">
+                <div class="gallery-loading" style="text-align:center;padding:60px;color:#64748b;">
+                    <i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
+                    <span data-en="Loading gallery..." data-ar="جاري تحميل المعرض...">Loading gallery...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightboxImage">
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+        </div>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
 
     <!-- Contact Section -->
     <section class="section contact-section" id="contact">

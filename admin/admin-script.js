@@ -77,6 +77,7 @@ function initNavigation() {
             if (pageId === 'research') loadResearchTable();
             if (pageId === 'innovation') loadInnovationTable();
             if (pageId === 'news') loadNewsList();
+            if (pageId === 'gallery') loadGallery();
             if (pageId === 'settings') loadSettings();
         });
     });
@@ -605,3 +606,100 @@ function formatDate(dateStr) {
 window.viewSubmission = viewSubmission;
 window.quickUpdateStatus = quickUpdateStatus;
 window.deleteNews = deleteNews;
+window.deleteGalleryImage = deleteGalleryImage;
+
+// ==================== GALLERY FUNCTIONS ====================
+
+async function loadGallery() {
+    const grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+    grid.innerHTML = '<p style="text-align:center;padding:40px;color:#64748b;"><i class="fas fa-spinner fa-spin"></i> Loading gallery...</p>';
+
+    const result = await apiRequest('/gallery');
+    if (!result || !result.success) {
+        grid.innerHTML = '<p style="text-align:center;padding:40px;color:#ef4444;">Failed to load gallery</p>';
+        return;
+    }
+
+    if (result.data.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;padding:40px;color:#64748b;"><i class="fas fa-images"></i> No images uploaded yet</p>';
+        return;
+    }
+
+    grid.innerHTML = result.data.map(img => `
+        <div class="gallery-item" data-id="${img.id}">
+            <img src="/${img.image_path}" alt="${img.caption_en || 'Gallery image'}" loading="lazy" onclick="window.open('/${img.image_path}','_blank')">
+            <div class="gallery-item-info">
+                <p class="gallery-caption">${img.caption_en || img.caption_ar || 'No caption'}</p>
+                <span class="gallery-category">${img.category}</span>
+            </div>
+            <div class="gallery-item-actions">
+                <button class="btn-icon btn-danger" onclick="deleteGalleryImage(${img.id})" title="Delete">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function deleteGalleryImage(id) {
+    if (!confirm('Are you sure you want to delete this image?')) return;
+
+    const result = await apiRequest(`/gallery/${id}`, { method: 'DELETE' });
+    if (result && result.success) {
+        showNotification('Image deleted successfully', 'success');
+        loadGallery();
+    }
+}
+
+// Gallery Form Handler
+function initGalleryForm() {
+    const form = document.getElementById('galleryForm');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const fileInput = document.getElementById('galleryImage');
+        if (!fileInput.files[0]) {
+            showNotification('Please select an image', 'error');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', fileInput.files[0]);
+        formData.append('captionEn', document.getElementById('galleryCaptionEn').value);
+        formData.append('captionAr', document.getElementById('galleryCaptionAr').value);
+        formData.append('category', document.getElementById('galleryCategory').value);
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalHtml = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+
+        try {
+            const response = await fetch(`${API_BASE}/gallery`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${authToken}` },
+                body: formData
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                showNotification('Image uploaded successfully!', 'success');
+                form.reset();
+                loadGallery();
+            } else {
+                showNotification(result.message || 'Upload failed', 'error');
+            }
+        } catch (error) {
+            showNotification('Failed to upload image', 'error');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalHtml;
+        }
+    });
+}
+
+// Initialize gallery form on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', initGalleryForm);

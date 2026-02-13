@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initFormHandlers();
     initContactForm();
     initLanguageSwitcher();
+    initPublicNews();
+    initPublicGallery();
 });
 
 // Science Background Animation
@@ -279,3 +281,203 @@ function initLanguageSwitcher() {
         updateUI(currentLang);
     });
 }
+
+// ==================== PUBLIC NEWS ====================
+function initPublicNews() {
+    const container = document.getElementById('publicNewsList');
+    if (!container) return;
+
+    const lang = document.documentElement.lang || 'en';
+
+    fetch('/api/news')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success || !data.data.length) {
+                container.innerHTML = `
+                    <div class="news-empty">
+                        <i class="fas fa-newspaper"></i>
+                        <p data-en="No news available yet" data-ar="لا توجد أخبار متاحة حالياً">
+                            ${lang === 'ar' ? 'لا توجد أخبار متاحة حالياً' : 'No news available yet'}</p>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = data.data.map(item => {
+                const title = lang === 'ar' && item.title_ar ? item.title_ar : item.title_en;
+                const content = lang === 'ar' && item.content_ar ? item.content_ar : item.content_en;
+                const typeClass = item.type === 'deadline' ? 'deadline-type' :
+                    item.type === 'announcement' ? 'announcement-type' : 'news-type';
+                const typeLabel = item.type.charAt(0).toUpperCase() + item.type.slice(1);
+                const date = new Date(item.published_at || item.created_at);
+                const dateStr = date.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US',
+                    { month: 'short', day: 'numeric', year: 'numeric' });
+
+                return `
+                    <div class="news-card">
+                        <div class="news-card-header">
+                            <span class="news-type-badge ${typeClass}">
+                                <i class="fas fa-${item.type === 'deadline' ? 'clock' : item.type === 'announcement' ? 'bullhorn' : 'newspaper'}"></i>
+                                ${typeLabel}
+                            </span>
+                            <span class="news-date">${dateStr}</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>${title}</h3>
+                            <p>${content}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        })
+        .catch(() => {
+            container.innerHTML = `
+                <div class="news-empty">
+                    <i class="fas fa-newspaper"></i>
+                    <p>${lang === 'ar' ? 'لا توجد أخبار متاحة حالياً' : 'No news available yet'}</p>
+                </div>`;
+        });
+}
+
+// ==================== PUBLIC GALLERY ====================
+let galleryImages = [];
+let currentImageIndex = 0;
+
+function initPublicGallery() {
+    const container = document.getElementById('publicGalleryGrid');
+    if (!container) return;
+
+    const lang = document.documentElement.lang || 'en';
+
+    // Load gallery images
+    fetch('/api/gallery')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success || !data.data.length) {
+                container.innerHTML = `
+                    <div class="gallery-empty">
+                        <i class="fas fa-images"></i>
+                        <p data-en="Gallery coming soon" data-ar="المعرض قريباً">
+                            ${lang === 'ar' ? 'المعرض قريباً' : 'Gallery coming soon'}</p>
+                    </div>`;
+                return;
+            }
+
+            galleryImages = data.data;
+            renderGallery(galleryImages);
+        })
+        .catch(() => {
+            container.innerHTML = `
+                <div class="gallery-empty">
+                    <i class="fas fa-images"></i>
+                    <p>${lang === 'ar' ? 'المعرض قريباً' : 'Gallery coming soon'}</p>
+                </div>`;
+        });
+
+    // Filter buttons
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const category = btn.dataset.category;
+            if (category === 'all') {
+                renderGallery(galleryImages);
+            } else {
+                renderGallery(galleryImages.filter(img => img.category === category));
+            }
+        });
+    });
+
+    // Lightbox
+    initLightbox();
+}
+
+function renderGallery(images) {
+    const container = document.getElementById('publicGalleryGrid');
+    const lang = document.documentElement.lang || 'en';
+
+    if (!images.length) {
+        container.innerHTML = `
+            <div class="gallery-empty">
+                <i class="fas fa-images"></i>
+                <p>${lang === 'ar' ? 'لا توجد صور في هذا التصنيف' : 'No images in this category'}</p>
+            </div>`;
+        return;
+    }
+
+    container.innerHTML = images.map((img, index) => {
+        const caption = lang === 'ar' && img.caption_ar ? img.caption_ar : (img.caption_en || '');
+        return `
+            <div class="gallery-card" onclick="openLightbox(${index})">
+                <img src="/${img.image_path}" alt="${caption}" loading="lazy">
+                <div class="gallery-card-overlay">
+                    ${caption ? `<p>${caption}</p>` : ''}
+                    <span>${img.category}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function initLightbox() {
+    const modal = document.getElementById('lightboxModal');
+    if (!modal) return;
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
+    document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+}
+
+function openLightbox(index) {
+    const filtered = getFilteredImages();
+    if (!filtered.length) return;
+    currentImageIndex = index;
+    const img = filtered[index];
+    const lang = document.documentElement.lang || 'en';
+    const caption = lang === 'ar' && img.caption_ar ? img.caption_ar : (img.caption_en || '');
+
+    document.getElementById('lightboxImage').src = `/${img.image_path}`;
+    document.getElementById('lightboxCaption').textContent = caption;
+    document.getElementById('lightboxModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    document.getElementById('lightboxModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function navigateLightbox(dir) {
+    const filtered = getFilteredImages();
+    currentImageIndex = (currentImageIndex + dir + filtered.length) % filtered.length;
+    const img = filtered[currentImageIndex];
+    const lang = document.documentElement.lang || 'en';
+    const caption = lang === 'ar' && img.caption_ar ? img.caption_ar : (img.caption_en || '');
+
+    const imgEl = document.getElementById('lightboxImage');
+    imgEl.style.opacity = 0;
+    setTimeout(() => {
+        imgEl.src = `/${img.image_path}`;
+        document.getElementById('lightboxCaption').textContent = caption;
+        imgEl.style.opacity = 1;
+    }, 200);
+}
+
+function getFilteredImages() {
+    const activeFilter = document.querySelector('.gallery-filter-btn.active');
+    const category = activeFilter ? activeFilter.dataset.category : 'all';
+    return category === 'all' ? galleryImages : galleryImages.filter(i => i.category === category);
+}
+
+window.openLightbox = openLightbox;

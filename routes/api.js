@@ -65,6 +65,46 @@ router.get('/stats', async (req, res) => {
     }
 });
 
+// Get published gallery images (public)
+router.get('/gallery', async (req, res) => {
+    try {
+        const { category } = req.query;
+        let whereClause = 'WHERE is_visible = true';
+        const params = [];
+
+        if (category) {
+            params.push(category);
+            whereClause += ` AND category = $1`;
+        }
+
+        const images = await getAll(`
+            SELECT id, image_path, caption_en, caption_ar, category
+            FROM gallery
+            ${whereClause}
+            ORDER BY sort_order ASC, created_at DESC
+        `, params);
+        res.json({ success: true, data: images });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// Get published news (public)
+router.get('/news', async (req, res) => {
+    try {
+        const news = await getAll(`
+            SELECT id, title_en, title_ar, content_en, content_ar, type, published_at
+            FROM announcements
+            WHERE is_published = true
+            ORDER BY published_at DESC
+            LIMIT 20
+        `);
+        res.json({ success: true, data: news });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 // Health check
 router.get('/health', (req, res) => {
     res.json({

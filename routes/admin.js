@@ -2,7 +2,31 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
+const { v4: uuidv4 } = require('uuid');
 const { query, getOne, getAll } = require('../database/db');
+const { sendStatusEmail } = require('../services/emailService');
+
+// Configure multer for gallery uploads
+const galleryStorage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, 'uploads/gallery/'),
+    filename: (req, file, cb) => {
+        const uniqueName = `gallery-${uuidv4()}${path.extname(file.originalname)}`;
+        cb(null, uniqueName);
+    }
+});
+
+const galleryUpload = multer({
+    storage: galleryStorage,
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const allowed = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+        const ext = path.extname(file.originalname).toLowerCase();
+        if (allowed.includes(ext)) cb(null, true);
+        else cb(new Error('Only image files are allowed'));
+    }
+});
 
 const JWT_SECRET = process.env.JWT_SECRET || 'srif-2026-jwt-secret';
 
@@ -254,7 +278,7 @@ router.get('/submission/:type/:id', authMiddleware, async (req, res) => {
     }
 });
 
-// Update submission status
+// Update submission status + send email notification
 router.patch('/submission/:type/:id', authMiddleware, async (req, res) => {
     try {
         const { type, id } = req.params;
@@ -263,6 +287,12 @@ router.patch('/submission/:type/:id', authMiddleware, async (req, res) => {
 
         if (!['pending', 'approved', 'rejected', 'revision'].includes(status)) {
             return res.status(400).json({ success: false, message: 'Invalid status' });
+        }
+
+        // Get submission before updating (for email)
+        const submission = await getOne(`SELECT * FROM ${table} WHERE id = $1`, [id]);
+        if (!submission) {
+            return res.status(404).json({ success: false, message: 'Submission not found' });
         }
 
         await query(`
@@ -278,7 +308,17 @@ router.patch('/submission/:type/:id', authMiddleware, async (req, res) => {
             VALUES ($1, 'update_status', $2, $3, $4)
         `, [req.user.id, type, id, JSON.stringify({ status, reviewerNotes })]);
 
-        res.json({ success: true, message: 'Submission updated successfully' });
+        // Send email notification (async, don't block response)
+        let emailResult = { sent: false };
+        if (status !== 'pending') {
+            emailResult = await sendStatusEmail(submission, status, type, reviewerNotes);
+        }
+
+        res.json({
+            success: true,
+            message: 'Submission updated successfully',
+            emailSent: emailResult.sent
+        });
 
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -392,6 +432,86 @@ router.get('/export/:type', authMiddleware, async (req, res) => {
             res.json({ success: true, data: submissions });
         }
 
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// ==================== GALLERY ROUTES ====================
+
+// Get all gallery images
+router.get('/gallery', authMiddleware, async (req, res) => {
+    try {
+        const images = await getAll(`
+            SELECT g.*, u.name as uploaded_by_name
+            FROM gallery g
+            LEFT JOIN users u ON g.uploaded_by = u.id
+            ORDER BY g.sort_order ASC, g.created_at DESC
+        `);
+        res.json({ success: true, data: images });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// Upload gallery image
+router.post('/gallery', authMiddleware, galleryUpload.single('image'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: 'Image file is required' });
+        }
+
+        const { captionEn, captionAr, category } = req.body;
+
+        const maxOrder = await getOne('SELECT COALESCE(MAX(sort_order), 0) as max_order FROM gallery');
+
+        const result = await query(`
+            INSERT INTO gallery (image_path, caption_en, caption_ar, category, sort_order, uploaded_by)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING id
+        `, [
+            req.file.path.replace(/\\/g, '/'),
+            captionEn || null,
+            captionAr || null,
+            category || 'general',
+            parseInt(maxOrder.max_order) + 1,
+            req.user.id
+        ]);
+
+        res.status(201).json({
+            success: true,
+            message: 'Image uploaded successfully',
+            data: { id: result.rows[0].id, path: req.file.path }
+        });
+
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// Update gallery image
+router.patch('/gallery/:id', authMiddleware, async (req, res) => {
+    try {
+        const { captionEn, captionAr, category, sortOrder } = req.body;
+        await query(`
+            UPDATE gallery 
+            SET caption_en = COALESCE($1, caption_en),
+                caption_ar = COALESCE($2, caption_ar),
+                category = COALESCE($3, category),
+                sort_order = COALESCE($4, sort_order)
+            WHERE id = $5
+        `, [captionEn, captionAr, category, sortOrder, req.params.id]);
+        res.json({ success: true, message: 'Image updated' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// Delete gallery image
+router.delete('/gallery/:id', authMiddleware, async (req, res) => {
+    try {
+        await query('DELETE FROM gallery WHERE id = $1', [req.params.id]);
+        res.json({ success: true, message: 'Image deleted' });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }

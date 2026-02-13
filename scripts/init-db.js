@@ -128,6 +128,19 @@ async function initDatabase() {
                 replied_at TIMESTAMP,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
+
+            -- Gallery Table
+            CREATE TABLE IF NOT EXISTS gallery (
+                id SERIAL PRIMARY KEY,
+                image_path VARCHAR(500) NOT NULL,
+                caption_en VARCHAR(500),
+                caption_ar VARCHAR(500),
+                category VARCHAR(100) DEFAULT 'general',
+                sort_order INTEGER DEFAULT 0,
+                is_visible BOOLEAN DEFAULT true,
+                uploaded_by INTEGER REFERENCES users(id),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
         `);
 
         console.log('✅ Tables created successfully\n');

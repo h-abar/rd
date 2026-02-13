@@ -41,6 +41,10 @@
                 <i class="fas fa-newspaper"></i>
                 <span>News & Announcements</span>
             </a>
+            <a href="#" class="nav-item" data-page="gallery">
+                <i class="fas fa-images"></i>
+                <span>Photo Gallery</span>
+            </a>
             <a href="#" class="nav-item" data-page="settings">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
@@ -331,6 +335,65 @@
                 </div>
                 <div class="card-body">
                     <div class="news-list" id="newsList">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery Page -->
+        <section class="page" id="page-gallery">
+            <div class="page-header">
+                <h1>Photo Gallery</h1>
+                <p>Manage event photos and images</p>
+            </div>
+
+            <div class="add-news-form card">
+                <div class="card-header">
+                    <h3><i class="fas fa-upload"></i> Upload New Image</h3>
+                </div>
+                <div class="card-body">
+                    <form id="galleryForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Image File *</label>
+                            <input type="file" id="galleryImage" accept="image/*" required
+                                style="padding:10px;border:2px dashed #e2e8f0;border-radius:8px;width:100%;cursor:pointer;">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Caption (English)</label>
+                                <input type="text" id="galleryCaptionEn" placeholder="Image caption">
+                            </div>
+                            <div class="form-group">
+                                <label>Caption (Arabic)</label>
+                                <input type="text" id="galleryCaptionAr" placeholder="وصف الصورة" dir="rtl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="galleryCategory">
+                                <option value="general">General</option>
+                                <option value="event">Event</option>
+                                <option value="research">Research</option>
+                                <option value="innovation">Innovation</option>
+                                <option value="ceremony">Ceremony</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Image
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-th"></i> Gallery Images</h3>
+                </div>
+                <div class="card-body">
+                    <div class="gallery-grid" id="galleryGrid">
                         <!-- Populated by JavaScript -->
                     </div>
                 </div>
