@@ -430,29 +430,49 @@ async function loadSettings() {
 
 // Forms
 function initForms() {
-    // News form
+    // News form (with image upload)
     const newsForm = document.getElementById('newsForm');
     newsForm?.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        const formData = {
-            titleEn: document.getElementById('newsTitle').value,
-            titleAr: document.getElementById('newsTitleAr')?.value || '',
-            type: document.getElementById('newsType').value,
-            contentEn: document.getElementById('newsContent').value,
-            contentAr: document.getElementById('newsContentAr')?.value || '',
-            isPublished: true
-        };
+        const formData = new FormData();
+        formData.append('titleEn', document.getElementById('newsTitle').value);
+        formData.append('titleAr', document.getElementById('newsTitleAr')?.value || '');
+        formData.append('type', document.getElementById('newsType').value);
+        formData.append('contentEn', document.getElementById('newsContent').value);
+        formData.append('contentAr', document.getElementById('newsContentAr')?.value || '');
+        formData.append('isPublished', 'true');
 
-        const data = await apiRequest('/announcements', {
-            method: 'POST',
-            body: JSON.stringify(formData)
-        });
+        const imageFile = document.getElementById('newsImage')?.files[0];
+        if (imageFile) {
+            formData.append('image', imageFile);
+        }
 
-        if (data && data.success) {
-            showNotification('تم نشر الإعلان بنجاح', 'success');
-            this.reset();
-            loadNewsList();
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalHtml = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publishing...';
+
+        try {
+            const response = await fetch(`${API_BASE}/announcements`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${authToken}` },
+                body: formData
+            });
+
+            const data = await response.json();
+            if (data && data.success) {
+                showNotification('تم نشر الإعلان بنجاح', 'success');
+                this.reset();
+                loadNewsList();
+            } else {
+                showNotification(data.message || 'فشل النشر', 'error');
+            }
+        } catch (error) {
+            showNotification('فشل النشر', 'error');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalHtml;
         }
     });
 

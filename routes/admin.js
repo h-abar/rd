@@ -348,8 +348,30 @@ router.get('/announcements', authMiddleware, async (req, res) => {
     }
 });
 
-// Create announcement
-router.post('/announcements', authMiddleware, async (req, res) => {
+// Configure multer for news uploads
+const newsDir = path.join(__dirname, '..', 'uploads', 'news');
+if (!fs.existsSync(newsDir)) {
+    fs.mkdirSync(newsDir, { recursive: true });
+}
+const newsUpload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => cb(null, newsDir),
+        filename: (req, file, cb) => cb(null, `news-${uuidv4()}${path.extname(file.originalname)}`)
+    }),
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const allowed = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+        if (allowed.includes(path.extname(file.originalname).toLowerCase())) cb(null, true);
+        else cb(new Error('Only image files are allowed'));
+    }
+});
+
+// Auto-add image_path column if not exists
+query(`ALTER TABLE announcements ADD COLUMN IF NOT EXISTS image_path VARCHAR(500)`)
+    .catch(() => { });
+
+// Create announcement with image
+router.post('/announcements', authMiddleware, newsUpload.single('image'), async (req, res) => {
     try {
         const { titleEn, titleAr, contentEn, contentAr, type, isPublished } = req.body;
 
@@ -357,11 +379,16 @@ router.post('/announcements', authMiddleware, async (req, res) => {
             return res.status(400).json({ success: false, message: 'Title and content are required' });
         }
 
+        let imagePath = null;
+        if (req.file) {
+            imagePath = path.relative(path.join(__dirname, '..'), req.file.path).replace(/\\/g, '/');
+        }
+
         const result = await query(`
-            INSERT INTO announcements (title_en, title_ar, content_en, content_ar, type, is_published, created_by)
-            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            INSERT INTO announcements (title_en, title_ar, content_en, content_ar, type, is_published, image_path, created_by)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING id
-        `, [titleEn, titleAr || null, contentEn, contentAr || null, type || 'news', isPublished ?? true, req.user.id]);
+        `, [titleEn, titleAr || null, contentEn, contentAr || null, type || 'news', isPublished ?? true, imagePath, req.user.id]);
 
         res.status(201).json({
             success: true,

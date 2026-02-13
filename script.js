@@ -283,11 +283,13 @@ function initLanguageSwitcher() {
 }
 
 // ==================== PUBLIC NEWS ====================
+let allNewsItems = [];
+
 function initPublicNews() {
     const container = document.getElementById('publicNewsList');
     if (!container) return;
 
-    const lang = document.documentElement.lang || 'en';
+    const lang = localStorage.getItem('srif_lang') || 'en';
 
     fetch('/api/news')
         .then(res => res.json())
@@ -296,38 +298,13 @@ function initPublicNews() {
                 container.innerHTML = `
                     <div class="news-empty">
                         <i class="fas fa-newspaper"></i>
-                        <p data-en="No news available yet" data-ar="لا توجد أخبار متاحة حالياً">
-                            ${lang === 'ar' ? 'لا توجد أخبار متاحة حالياً' : 'No news available yet'}</p>
+                        <p>${lang === 'ar' ? 'لا توجد أخبار متاحة حالياً' : 'No news available yet'}</p>
                     </div>`;
                 return;
             }
 
-            container.innerHTML = data.data.map(item => {
-                const title = lang === 'ar' && item.title_ar ? item.title_ar : item.title_en;
-                const content = lang === 'ar' && item.content_ar ? item.content_ar : item.content_en;
-                const typeClass = item.type === 'deadline' ? 'deadline-type' :
-                    item.type === 'announcement' ? 'announcement-type' : 'news-type';
-                const typeLabel = item.type.charAt(0).toUpperCase() + item.type.slice(1);
-                const date = new Date(item.published_at || item.created_at);
-                const dateStr = date.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US',
-                    { month: 'short', day: 'numeric', year: 'numeric' });
-
-                return `
-                    <div class="news-card">
-                        <div class="news-card-header">
-                            <span class="news-type-badge ${typeClass}">
-                                <i class="fas fa-${item.type === 'deadline' ? 'clock' : item.type === 'announcement' ? 'bullhorn' : 'newspaper'}"></i>
-                                ${typeLabel}
-                            </span>
-                            <span class="news-date">${dateStr}</span>
-                        </div>
-                        <div class="news-card-body">
-                            <h3>${title}</h3>
-                            <p>${content}</p>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            allNewsItems = data.data;
+            renderNewsCards(lang);
         })
         .catch(() => {
             container.innerHTML = `
@@ -337,6 +314,112 @@ function initPublicNews() {
                 </div>`;
         });
 }
+
+function renderNewsCards(lang) {
+    const container = document.getElementById('publicNewsList');
+    if (!container || !allNewsItems.length) return;
+
+    container.innerHTML = allNewsItems.map(item => {
+        const title = lang === 'ar' && item.title_ar ? item.title_ar : item.title_en;
+        const content = lang === 'ar' && item.content_ar ? item.content_ar : item.content_en;
+        const typeClass = item.type === 'deadline' ? 'deadline-type' :
+            item.type === 'announcement' ? 'announcement-type' : 'news-type';
+        const typeLabel = lang === 'ar' ?
+            (item.type === 'deadline' ? 'موعد نهائي' : item.type === 'announcement' ? 'إعلان' : 'خبر') :
+            item.type.charAt(0).toUpperCase() + item.type.slice(1);
+        const date = new Date(item.published_at || item.created_at);
+        const dateStr = date.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US',
+            { month: 'short', day: 'numeric', year: 'numeric' });
+
+        const imageHtml = item.image_path
+            ? `<div class="news-card-image"><img src="/${item.image_path}" alt="${title}" loading="lazy"></div>`
+            : `<div class="news-card-image news-card-no-image"><i class="fas fa-newspaper"></i></div>`;
+
+        return `
+            <div class="news-card" onclick="openNewsDetail(${item.id})" style="cursor:pointer;" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">
+                ${imageHtml}
+                <div class="news-card-header">
+                    <span class="news-type-badge ${typeClass}">
+                        <i class="fas fa-${item.type === 'deadline' ? 'clock' : item.type === 'announcement' ? 'bullhorn' : 'newspaper'}"></i>
+                        ${typeLabel}
+                    </span>
+                    <span class="news-date">${dateStr}</span>
+                </div>
+                <div class="news-card-body">
+                    <h3>${title}</h3>
+                    <p>${content}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function openNewsDetail(id) {
+    const lang = localStorage.getItem('srif_lang') || 'en';
+    const item = allNewsItems.find(n => n.id === id);
+    if (!item) return;
+
+    const title = lang === 'ar' && item.title_ar ? item.title_ar : item.title_en;
+    const content = lang === 'ar' && item.content_ar ? item.content_ar : item.content_en;
+    const typeLabel = lang === 'ar' ?
+        (item.type === 'deadline' ? 'موعد نهائي' : item.type === 'announcement' ? 'إعلان' : 'خبر') :
+        item.type.charAt(0).toUpperCase() + item.type.slice(1);
+    const date = new Date(item.published_at || item.created_at);
+    const dateStr = date.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US',
+        { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+    const typeClass = item.type === 'deadline' ? 'deadline-type' :
+        item.type === 'announcement' ? 'announcement-type' : 'news-type';
+
+    // Create modal
+    let modal = document.getElementById('newsDetailModal');
+    if (modal) modal.remove();
+
+    modal = document.createElement('div');
+    modal.id = 'newsDetailModal';
+    modal.className = 'news-detail-modal active';
+    modal.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    modal.innerHTML = `
+        <div class="news-detail-overlay" onclick="closeNewsDetail()"></div>
+        <div class="news-detail-content">
+            <button class="news-detail-close" onclick="closeNewsDetail()"><i class="fas fa-times"></i></button>
+            ${item.image_path ? `<div class="news-detail-image"><img src="/${item.image_path}" alt="${title}"></div>` : ''}
+            <div class="news-detail-body">
+                <div class="news-detail-meta">
+                    <span class="news-type-badge ${typeClass}">
+                        <i class="fas fa-${item.type === 'deadline' ? 'clock' : item.type === 'announcement' ? 'bullhorn' : 'newspaper'}"></i>
+                        ${typeLabel}
+                    </span>
+                    <span class="news-detail-date"><i class="far fa-calendar-alt"></i> ${dateStr}</span>
+                </div>
+                <h2 class="news-detail-title">${title}</h2>
+                <div class="news-detail-text">${content.replace(/\n/g, '<br>')}</div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    // Close on ESC
+    const escHandler = (e) => {
+        if (e.key === 'Escape') closeNewsDetail();
+    };
+    document.addEventListener('keydown', escHandler);
+    modal._escHandler = escHandler;
+}
+
+function closeNewsDetail() {
+    const modal = document.getElementById('newsDetailModal');
+    if (modal) {
+        if (modal._escHandler) document.removeEventListener('keydown', modal._escHandler);
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+}
+
+window.openNewsDetail = openNewsDetail;
+window.closeNewsDetail = closeNewsDetail;
 
 // ==================== PUBLIC GALLERY ====================
 let galleryImages = [];

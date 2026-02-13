@@ -93,13 +93,31 @@ router.get('/gallery', async (req, res) => {
 router.get('/news', async (req, res) => {
     try {
         const news = await getAll(`
-            SELECT id, title_en, title_ar, content_en, content_ar, type, published_at
+            SELECT id, title_en, title_ar, content_en, content_ar, type, image_path, published_at
             FROM announcements
             WHERE is_published = true
             ORDER BY published_at DESC
             LIMIT 20
         `);
         res.json({ success: true, data: news });
+    } catch (error) {
+        res.status(500).json({ success: true, data: [] });
+    }
+});
+
+// Get single news item (public)
+router.get('/news/:id', async (req, res) => {
+    try {
+        const item = await getOne(`
+            SELECT id, title_en, title_ar, content_en, content_ar, type, image_path, published_at
+            FROM announcements
+            WHERE id = $1 AND is_published = true
+        `, [req.params.id]);
+
+        if (!item) {
+            return res.status(404).json({ success: false, message: 'News not found' });
+        }
+        res.json({ success: true, data: item });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
