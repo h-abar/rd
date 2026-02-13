@@ -7,10 +7,18 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const { query, getOne, getAll } = require('../database/db');
 const { sendStatusEmail } = require('../services/emailService');
+const fs = require('fs');
+
+// Ensure gallery upload directory exists
+const galleryDir = path.join(__dirname, '..', 'uploads', 'gallery');
+if (!fs.existsSync(galleryDir)) {
+    fs.mkdirSync(galleryDir, { recursive: true });
+    console.log('📁 Created uploads/gallery directory');
+}
 
 // Configure multer for gallery uploads
 const galleryStorage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'uploads/gallery/'),
+    destination: (req, file, cb) => cb(null, galleryDir),
     filename: (req, file, cb) => {
         const uniqueName = `gallery-${uuidv4()}${path.extname(file.originalname)}`;
         cb(null, uniqueName);
@@ -439,6 +447,21 @@ router.get('/export/:type', authMiddleware, async (req, res) => {
 
 // ==================== GALLERY ROUTES ====================
 
+// Auto-create gallery table if not exists
+query(`
+    CREATE TABLE IF NOT EXISTS gallery (
+        id SERIAL PRIMARY KEY,
+        image_path VARCHAR(500) NOT NULL,
+        caption_en VARCHAR(500),
+        caption_ar VARCHAR(500),
+        category VARCHAR(100) DEFAULT 'general',
+        sort_order INTEGER DEFAULT 0,
+        is_visible BOOLEAN DEFAULT true,
+        uploaded_by INTEGER REFERENCES users(id),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+`).then(() => console.log('✅ Gallery table ready')).catch(err => console.error('Gallery table error:', err.message));
+
 // Get all gallery images
 router.get('/gallery', authMiddleware, async (req, res) => {
     try {
@@ -465,12 +488,14 @@ router.post('/gallery', authMiddleware, galleryUpload.single('image'), async (re
 
         const maxOrder = await getOne('SELECT COALESCE(MAX(sort_order), 0) as max_order FROM gallery');
 
+        const relativePath = path.relative(path.join(__dirname, '..'), req.file.path).replace(/\\/g, '/');
+
         const result = await query(`
             INSERT INTO gallery (image_path, caption_en, caption_ar, category, sort_order, uploaded_by)
             VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING id
         `, [
-            req.file.path.replace(/\\/g, '/'),
+            relativePath,
             captionEn || null,
             captionAr || null,
             category || 'general',
