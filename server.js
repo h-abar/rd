@@ -51,11 +51,13 @@ const apiRoutes = require('./routes/api');
 const adminRoutes = require('./routes/admin');
 const submissionRoutes = require('./routes/submissions');
 const contactRoutes = require('./routes/contact');
+const committeeRoutes = require('./routes/committees');
 
 app.use('/api', apiRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/submissions', submissionRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/committees', committeeRoutes);
 
 // Serve main pages
 app.get('/', (req, res) => {

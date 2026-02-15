@@ -120,131 +120,152 @@
                             <p class="form-hint" data-en="Arrange names in order of contribution to the research"
                                 data-ar="رتب الأسماء حسب ترتيب المساهمة في البحث">Arrange names in order of contribution
                                 to the research</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label data-en="Email Address" data-ar="البريد الإلكتروني">Email Address <span
-                                    class="required">*</span></label>
-                            <input type="email" class="form-control" name="email" placeholder="your.email@example.com"
-                                required>
-                        </div>
-
-                        <div class="form-group">
-                            <label data-en="Affiliation" data-ar="الجهة التابع لها">Affiliation <span
-                                    class="required">*</span></label>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="affiliation" value="medicine" required>
-                                    <span data-en="AlMaarefa University, College of Medicine"
-                                        data-ar="جامعة المعرفة، كلية الطب">AlMaarefa University, College of
-                                        Medicine</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="affiliation" value="pharmacy">
-                                    <span data-en="AlMaarefa University, College of Pharmacy"
-                                        data-ar="جامعة المعرفة، كلية الصيدلة">AlMaarefa University, College of
-                                        Pharmacy</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="affiliation" value="medical-sciences">
-                                    <span data-en="AlMaarefa University, College of Medical Sciences"
-                                        data-ar="جامعة المعرفة، كلية العلوم الطبية">AlMaarefa University, College of
-                                        Medical Sciences</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="affiliation" value="alumni">
-                                    <span data-en="Alumni/Graduate of AlMaarefa University"
-                                        data-ar="خريج / خريجة جامعة المعرفة">Alumni/Graduate of AlMaarefa
-                                        University</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="affiliation" value="external">
-                                    <span data-en="External University/Institution"
-                                        data-ar="جامعة / مؤسسة خارجية">External University/Institution</span>
-                                </label>
+                            <div class="form-group slide-in" style="animation-delay: 0.1s;">
+                                <label data-en="Presentation Type" data-ar="نوع العرض">Presentation Type <span
+                                        class="required">*</span></label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="presentationType" value="Oral" required>
+                                        <span data-en="Oral Presentation" data-ar="عرض شفهي">Oral Presentation</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="presentationType" value="Poster">
+                                        <span data-en="Poster Presentation" data-ar="ملصق علمي">Poster
+                                            Presentation</span>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group" id="externalInstitution" style="display: none;">
-                            <label data-en="Institution Name & Specialization" data-ar="اسم المؤسسة والتخصص">Institution
-                                Name & Specialization <span class="required">*</span></label>
-                            <input type="text" class="form-control" name="externalInstitution"
-                                placeholder="Enter your institution and specialization"
-                                data-placeholder-en="Enter your institution and specialization"
-                                data-placeholder-ar="أدخل اسم مؤسستك وتخصصك">
-                        </div>
-
-                        <!-- Abstract Details -->
-                        <div class="form-divider">
-                            <span data-en="Abstract Details (100-500 Words)"
-                                data-ar="تفاصيل الملخص (100-500 كلمة)">Abstract Details (100-500 Words)</span>
-                        </div>
-
-                        <div class="form-group">
-                            <label data-en="Title of the Abstract" data-ar="عنوان الملخص">Title of the Abstract <span
-                                    class="required">*</span></label>
-                            <input type="text" class="form-control" name="title" placeholder="Enter the title"
-                                data-placeholder-en="Enter the title" data-placeholder-ar="أدخل العنوان" required>
-                        </div>
-
-                        <div class="abstract-box">
-                            <h4><i class="fas fa-bullseye"></i> <span data-en="Background and Objectives"
-                                    data-ar="الخلفية والأهداف">Background and Objectives</span></h4>
-                            <textarea class="form-control" name="background" rows="4" placeholder="..."
-                                data-placeholder-en="Describe the need for the study..."
-                                data-placeholder-ar="صف الحاجة للدراسة والفجوة المعرفية..." required></textarea>
-                        </div>
-
-                        <div class="abstract-box">
-                            <h4><i class="fas fa-cogs"></i> <span data-en="Methods" data-ar="المنهجية">Methods</span>
-                            </h4>
-                            <textarea class="form-control" name="methods" rows="4" placeholder="..."
-                                data-placeholder-en="Describe methods used..."
-                                data-placeholder-ar="صف الأجهزة والأدوات المستخدمة والمنهجية..." required></textarea>
-                        </div>
-
-                        <div class="abstract-box">
-                            <h4><i class="fas fa-chart-line"></i> <span data-en="Results"
-                                    data-ar="النتائج">Results</span></h4>
-                            <textarea class="form-control" name="results" rows="4" placeholder="..."
-                                data-placeholder-en="Describe findings..."
-                                data-placeholder-ar="صف أهم نتائج الدراسة بالأرقام الدقيقة..." required></textarea>
-                        </div>
-
-                        <div class="abstract-box">
-                            <h4><i class="fas fa-flag-checkered"></i> <span data-en="Conclusion"
-                                    data-ar="الخلاصة">Conclusion</span></h4>
-                            <textarea class="form-control" name="conclusion" rows="4" placeholder="..."
-                                data-placeholder-en="Important recommendations..."
-                                data-placeholder-ar="قدم الرسالة الختامية والتوصيات الهامة..." required></textarea>
-                        </div>
-
-                        <!-- File Upload -->
-                        <div class="form-divider">
-                            <span data-en="Upload Abstract File" data-ar="رفع ملف الملخص">Upload Abstract File</span>
-                        </div>
-
-                        <div class="form-group">
-                            <label data-en="Abstract Document" data-ar="ملف الملخص">Abstract Document <span
-                                    class="required">*</span></label>
-                            <div class="file-upload">
-                                <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx" required>
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <h4 data-en="Click or Drag to Upload" data-ar="اضغط أو اسحب الملف للرفع">Click or Drag
-                                    to Upload</h4>
-                                <p data-en="Include: Title, Authors, Affiliation, and Abstract"
-                                    data-ar="يجب أن يشمل: العنوان، المؤلفين، الجهة، والملخص">Include: Title, Authors,
-                                    Affiliation, and Abstract</p>
-                                <small data-en="Accepted formats: PDF, DOC, DOCX (Max 10MB)"
-                                    data-ar="الصيغ المقبولة: PDF, DOC, DOCX (الحد الأقصى 10 ميجابايت)">Accepted formats:
-                                    PDF, DOC, DOCX (Max 10MB)</small>
+                            <div class="form-group">
+                                <label data-en="Email Address" data-ar="البريد الإلكتروني">Email Address <span
+                                        class="required">*</span></label>
+                                <input type="email" class="form-control" name="email"
+                                    placeholder="your.email@example.com" required>
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            <i class="fas fa-paper-plane"></i> <span data-en="Submit Research Abstract"
-                                data-ar="تقديم ملخص البحث">Submit Research Abstract</span>
-                        </button>
+                            <div class="form-group">
+                                <label data-en="Affiliation" data-ar="الجهة التابع لها">Affiliation <span
+                                        class="required">*</span></label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="affiliation" value="medicine" required>
+                                        <span data-en="AlMaarefa University, College of Medicine"
+                                            data-ar="جامعة المعرفة، كلية الطب">AlMaarefa University, College of
+                                            Medicine</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="affiliation" value="pharmacy">
+                                        <span data-en="AlMaarefa University, College of Pharmacy"
+                                            data-ar="جامعة المعرفة، كلية الصيدلة">AlMaarefa University, College of
+                                            Pharmacy</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="affiliation" value="medical-sciences">
+                                        <span data-en="AlMaarefa University, College of Medical Sciences"
+                                            data-ar="جامعة المعرفة، كلية العلوم الطبية">AlMaarefa University, College of
+                                            Medical Sciences</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="affiliation" value="alumni">
+                                        <span data-en="Alumni/Graduate of AlMaarefa University"
+                                            data-ar="خريج / خريجة جامعة المعرفة">Alumni/Graduate of AlMaarefa
+                                            University</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="affiliation" value="external">
+                                        <span data-en="External University/Institution"
+                                            data-ar="جامعة / مؤسسة خارجية">External University/Institution</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="externalInstitution" style="display: none;">
+                                <label data-en="Institution Name & Specialization"
+                                    data-ar="اسم المؤسسة والتخصص">Institution
+                                    Name & Specialization <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="externalInstitution"
+                                    placeholder="Enter your institution and specialization"
+                                    data-placeholder-en="Enter your institution and specialization"
+                                    data-placeholder-ar="أدخل اسم مؤسستك وتخصصك">
+                            </div>
+
+                            <!-- Abstract Details -->
+                            <div class="form-divider">
+                                <span data-en="Abstract Details (100-500 Words)"
+                                    data-ar="تفاصيل الملخص (100-500 كلمة)">Abstract Details (100-500 Words)</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-en="Title of the Abstract" data-ar="عنوان الملخص">Title of the Abstract
+                                    <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="title" placeholder="Enter the title"
+                                    data-placeholder-en="Enter the title" data-placeholder-ar="أدخل العنوان" required>
+                            </div>
+
+                            <div class="abstract-box">
+                                <h4><i class="fas fa-bullseye"></i> <span data-en="Background and Objectives"
+                                        data-ar="الخلفية والأهداف">Background and Objectives</span></h4>
+                                <textarea class="form-control" name="background" rows="4" placeholder="..."
+                                    data-placeholder-en="Describe the need for the study..."
+                                    data-placeholder-ar="صف الحاجة للدراسة والفجوة المعرفية..." required></textarea>
+                            </div>
+
+                            <div class="abstract-box">
+                                <h4><i class="fas fa-cogs"></i> <span data-en="Methods"
+                                        data-ar="المنهجية">Methods</span>
+                                </h4>
+                                <textarea class="form-control" name="methods" rows="4" placeholder="..."
+                                    data-placeholder-en="Describe methods used..."
+                                    data-placeholder-ar="صف الأجهزة والأدوات المستخدمة والمنهجية..."
+                                    required></textarea>
+                            </div>
+
+                            <div class="abstract-box">
+                                <h4><i class="fas fa-chart-line"></i> <span data-en="Results"
+                                        data-ar="النتائج">Results</span></h4>
+                                <textarea class="form-control" name="results" rows="4" placeholder="..."
+                                    data-placeholder-en="Describe findings..."
+                                    data-placeholder-ar="صف أهم نتائج الدراسة بالأرقام الدقيقة..." required></textarea>
+                            </div>
+
+                            <div class="abstract-box">
+                                <h4><i class="fas fa-flag-checkered"></i> <span data-en="Conclusion"
+                                        data-ar="الخلاصة">Conclusion</span></h4>
+                                <textarea class="form-control" name="conclusion" rows="4" placeholder="..."
+                                    data-placeholder-en="Important recommendations..."
+                                    data-placeholder-ar="قدم الرسالة الختامية والتوصيات الهامة..." required></textarea>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div class="form-divider">
+                                <span data-en="Upload Abstract File" data-ar="رفع ملف الملخص">Upload Abstract
+                                    File</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-en="Abstract Document" data-ar="ملف الملخص">Abstract Document <span
+                                        class="required">*</span></label>
+                                <div class="file-upload">
+                                    <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx" required>
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <h4 data-en="Click or Drag to Upload" data-ar="اضغط أو اسحب الملف للرفع">Click or
+                                        Drag
+                                        to Upload</h4>
+                                    <p data-en="Include: Title, Authors, Affiliation, and Abstract"
+                                        data-ar="يجب أن يشمل: العنوان، المؤلفين، الجهة، والملخص">Include: Title,
+                                        Authors,
+                                        Affiliation, and Abstract</p>
+                                    <small data-en="Accepted formats: PDF, DOC, DOCX (Max 10MB)"
+                                        data-ar="الصيغ المقبولة: PDF, DOC, DOCX (الحد الأقصى 10 ميجابايت)">Accepted
+                                        formats:
+                                        PDF, DOC, DOCX (Max 10MB)</small>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                <i class="fas fa-paper-plane"></i> <span data-en="Submit Research Abstract"
+                                    data-ar="تقديم ملخص البحث">Submit Research Abstract</span>
+                            </button>
                     </form>
                 </div>
             </div>

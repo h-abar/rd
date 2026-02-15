@@ -65,6 +65,12 @@ npm run dev
 | `JWT_SECRET` | JWT signing secret | - |
 | `ADMIN_EMAIL` | Default admin email | `admin@um.edu.sa` |
 | `ADMIN_PASSWORD` | Default admin password | `srif2026admin` |
+| `SMTP_HOST` | SMTP Server Host | `smtp.example.com` |
+| `SMTP_PORT` | SMTP Port | `587` |
+| `SMTP_USER` | SMTP Username | - |
+| `SMTP_PASS` | SMTP Password | - |
+| `SMTP_SECURE` | Use SSL/TLS | `false` |
+| `SMTP_FROM` | Sender Email Address | `noreply@um.edu.sa` |
 
 ## 📁 Project Structure
 
@@ -117,6 +123,10 @@ srif-2026/
 - `GET/POST/DELETE /api/admin/announcements` - Manage announcements
 - `GET/PATCH /api/admin/settings` - Manage settings
 - `GET /api/admin/export/:type` - Export submissions
+- `POST/DELETE /api/committees` - Manage committees (Admin)
+
+### Committees
+- `GET /api/committees` - List committees and members
 
 ## 📝 License
 

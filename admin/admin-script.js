@@ -78,7 +78,9 @@ function initNavigation() {
             if (pageId === 'innovation') loadInnovationTable();
             if (pageId === 'news') loadNewsList();
             if (pageId === 'gallery') loadGallery();
+            if (pageId === 'gallery') loadGallery();
             if (pageId === 'settings') loadSettings();
+            if (pageId === 'committees') loadCommittees();
         });
     });
 }
@@ -288,6 +290,10 @@ async function viewSubmission(type, id) {
         <div class="submission-detail">
             <label>الانتماء</label>
             <p>${submission.affiliation_name_ar || submission.affiliation_name || '-'}</p>
+        </div>
+        <div class="submission-detail">
+            <label>نوع العرض</label>
+            <p style="font-weight: bold; color: var(--primary);">${submission.presentation_type || 'غير محدد'}</p>
         </div>
         ${submission.team_members ? `
         <div class="submission-detail">
@@ -723,3 +729,177 @@ function initGalleryForm() {
 
 // Initialize gallery form on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', initGalleryForm);
+
+// Committees Management
+async function loadCommittees() {
+    const list = document.getElementById('committeesList');
+    if (!list) return;
+
+    list.innerHTML = '<div class="text-center p-5"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+
+    try {
+        const response = await fetch('/api/committees');
+        const data = await response.json();
+
+        if (!data.success) throw new Error(data.message);
+
+        const committees = data.data;
+        if (committees.length === 0) {
+            list.innerHTML = '<div class="text-center p-5">No committees found. Create one above.</div>';
+            return;
+        }
+
+        list.innerHTML = committees.map(c => `
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center" style="display: flex; justify-content: space-between;">
+                    <h3>${c.name_en} / ${c.name_ar}</h3>
+                    <button class="btn-danger btn-sm" onclick="deleteCommittee(${c.id})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+                <div class="card-body">
+                    <h4 class="mb-3" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Members</h4>
+                    <div class="members-list mb-3" id="members-${c.id}">
+                        ${c.members && c.members.length > 0 ? c.members.map(m => `
+                            <div class="member-item" style="display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #f8f9fa;">
+                                <img src="/${m.image_path || 'images/default-avatar.png'}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 1px solid #ddd;">
+                                <div style="flex: 1;">
+                                    <strong>${m.name_en}</strong> <span class="text-muted">(${m.role_en || '-'})</span><br>
+                                    <small>${m.name_ar} <span class="text-muted">(${m.role_ar || '-'})</span></small>
+                                </div>
+                                <button class="btn-icon delete" onclick="deleteMember(${m.id})" style="color: #dc3545; background: none; border: none; cursor: pointer;"><i class="fas fa-times"></i></button>
+                            </div>
+                        `).join('') : '<p class="text-muted">No members yet.</p>'}
+                    </div>
+                    
+                    <div class="add-member-section" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                        <h5 style="margin-bottom: 15px;"><i class="fas fa-user-plus"></i> Add New Member</h5>
+                        <form onsubmit="event.preventDefault(); addMember(this, ${c.id})">
+                            <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <input type="text" name="name_en" placeholder="Name (English)" required class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                <input type="text" name="name_ar" placeholder="Name (Arabic)" required dir="rtl" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                <input type="text" name="role_en" placeholder="Role (English)" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                <input type="text" name="role_ar" placeholder="Role (Arabic)" dir="rtl" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                <div style="grid-column: span 2;">
+                                    <label style="display: block; margin-bottom: 5px; font-size: 0.9rem;">Member Photo</label>
+                                    <input type="file" name="image" accept="image/*" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; background: white;">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary" style="margin-top: 15px; width: 100%;">Add Member</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+    } catch (error) {
+        console.error(error);
+        list.innerHTML = `<div class="alert alert-danger" style="color: red; padding: 20px; background: #fff3f3; border: 1px solid #ffc9c9; border-radius: 5px;">Error loading committees: ${error.message}</div>`;
+    }
+}
+
+// Create Committee Form
+document.getElementById('createCommitteeForm')?.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const name_en = document.getElementById('committeeNameEn').value;
+    const name_ar = document.getElementById('committeeNameAr').value;
+    const btn = this.querySelector('button[type="submit"]');
+
+    // Simple validation
+    if (!name_en || !name_ar) {
+        alert('Please fill in both names');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+
+    try {
+        const response = await fetch('/api/committees/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name_en, name_ar })
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            this.reset();
+            loadCommittees();
+            alert('Committee created successfully');
+        } else {
+            alert(data.message || 'Error creating committee');
+        }
+    } catch (error) {
+        alert('Server error');
+        console.error(error);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Create Committee';
+    }
+});
+
+// Delete Committee
+async function deleteCommittee(id) {
+    if (!confirm('Are you sure you want to delete this committee and all its members?')) return;
+
+    try {
+        const response = await fetch(`/api/committees/${id}`, { method: 'DELETE' });
+        const data = await response.json();
+        if (data.success) {
+            loadCommittees();
+        } else {
+            alert(data.message);
+        }
+    } catch (error) {
+        alert('Error deleting committee');
+    }
+}
+
+// Add Member
+async function addMember(form, committeeId) {
+    const formData = new FormData(form);
+    formData.append('committee_id', committeeId);
+
+    // Add loading state to button
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerText;
+    btn.disabled = true;
+    btn.innerText = 'Adding...';
+
+    try {
+        const response = await fetch('/api/committees/member/add', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            form.reset();
+            loadCommittees();
+            // alert('Member added successfully'); // No need for alert if it updates UI
+        } else {
+            alert(data.message || 'Error adding member');
+        }
+    } catch (error) {
+        alert('Error adding member');
+        console.error(error);
+    } finally {
+        btn.disabled = false;
+        btn.innerText = originalText;
+    }
+}
+
+// Delete Member
+async function deleteMember(memberId) {
+    if (!confirm('Remove this member?')) return;
+
+    try {
+        const response = await fetch(`/api/committees/member/${memberId}`, { method: 'DELETE' });
+        const data = await response.json();
+        if (data.success) {
+            loadCommittees();
+        } else {
+            alert(data.message);
+        }
+    } catch (error) {
+        alert('Error removing member');
+    }
+}

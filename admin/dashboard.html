@@ -45,6 +45,10 @@
                 <i class="fas fa-images"></i>
                 <span>Photo Gallery</span>
             </a>
+            <a href="#" class="nav-item" data-page="committees">
+                <i class="fas fa-users-cog"></i>
+                <span>Committees</span>
+            </a>
             <a href="#" class="nav-item" data-page="settings">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
@@ -404,6 +408,42 @@
                         <!-- Populated by JavaScript -->
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Committees Page -->
+        <section class="page" id="page-committees">
+            <div class="page-header">
+                <h1>Committee Management</h1>
+                <p>Manage organizing committees and members</p>
+            </div>
+
+            <div class="card mb-4" style="margin-bottom: 30px;">
+                <div class="card-header">
+                    <h3><i class="fas fa-plus-circle"></i> Create New Committee</h3>
+                </div>
+                <div class="card-body">
+                    <form id="createCommitteeForm" class="form-grid"
+                        style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 20px; align-items: end;">
+                        <div class="form-group">
+                            <label>Committee Name (English)</label>
+                            <input type="text" id="committeeNameEn" class="form-control" required
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Committee Name (Arabic)</label>
+                            <input type="text" id="committeeNameAr" class="form-control" required dir="rtl"
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn-primary"
+                            style="padding: 10px 20px; height: 42px;">Create</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="committeesList">
+                <!-- populated by JS -->
+                <div class="text-center p-5"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
             </div>
         </section>
 

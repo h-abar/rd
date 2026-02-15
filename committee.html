@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRIF 2026 | Committees</title>
+    <meta name="description" content="Organizing Committees of SRIF 2026">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=2.9">
+    <style>
+        .hero-small {
+            background-color: #0f172a;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-small::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)), url('images/science-bg.webp') center/cover;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header"
+        style="background: rgba(255,255,255,0.95); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 60 60" fill="none">
+                        <circle cx="30" cy="30" r="28" stroke="url(#grad)" stroke-width="2" />
+                        <circle cx="30" cy="30" r="8" fill="url(#grad)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5"
+                            transform="rotate(60 30 30)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5"
+                            transform="rotate(-60 30 30)" />
+                        <ellipse cx="30" cy="30" rx="20" ry="8" stroke="url(#grad)" stroke-width="1.5" />
+                        <defs>
+                            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00d4ff" />
+                                <stop offset="100%" style="stop-color:#7c3aed" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main" data-en="SRIF" data-ar="منتدى البحث العلمي">SRIF</span>
+                    <span class="logo-year">2026</span>
+                </div>
+            </a>
+            <nav class="nav">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link" data-en="About" data-ar="عن المنتدى">About</a></li>
+                    <li><a href="committee.html" class="nav-link active" data-en="Committees"
+                            data-ar="اللجان">Committees</a></li>
+                    <li><a href="index.html#tracks" class="nav-link" data-en="Tracks" data-ar="المسارات">Tracks</a></li>
+                    <li><a href="index.html#timeline" class="nav-link" data-en="Timeline"
+                            data-ar="الجدول الزمني">Timeline</a></li>
+                    <li><a href="index.html#news" class="nav-link" data-en="News" data-ar="الأخبار">News</a></li>
+                    <li><a href="index.html#gallery" class="nav-link" data-en="Gallery" data-ar="المعرض">Gallery</a>
+                    </li>
+                    <li><a href="index.html#contact" class="nav-link" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+                    </li>
+                </ul>
+                <a href="https://rs.um.edu.sa" class="btn-prev-events" target="_blank" data-en="Previous Events"
+                    data-ar="الفعاليات السابقة">Previous Events</a>
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                    <span class="lang-en">العربية</span>
+                    <span class="lang-ar" style="display:none;">English</span>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-small" style="padding: 160px 0 80px; color: white; text-align: center;">
+        <div class="container">
+            <h1 data-en="Organizing Committees" data-ar="اللجان المنظمة" style="font-size: 3rem; margin-bottom: 20px;">
+                Organizing Committees</h1>
+            <p data-en="Meet the team behind the forum" data-ar="تعرف على فريق العمل خلف المنتدى"
+                style="font-size: 1.2rem; opacity: 0.9;">Meet the team behind the forum</p>
+        </div>
+    </section>
+
+    <!-- Committees Container -->
+    <section class="section" style="padding: 80px 0;">
+        <div class="container" id="committees-container">
+            <!-- Dynamic Content -->
+            <div class="text-center" style="padding: 50px;">
+                <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary);"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path
+                    d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+                    fill="#ffffff" />
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon"><i class="fas fa-atom"></i></div>
+                        <div class="logo-text">
+                            <span class="logo-main" data-en="SRIF" data-ar="منتدى البحث العلمي">SRIF</span>
+                            <span class="logo-year">2026</span>
+                        </div>
+                    </div>
+                    <p data-en="Scientific Research & Innovation Forum" data-ar="منتدى البحث العلمي والابتكار">
+                        Scientific Research & Innovation Forum</p>
+                    <p class="tagline" data-en='"Think Smart: Make a Difference"' data-ar='"فكر بذكاء: اصنع فرقاً"'>
+                        "Think Smart: Make a Difference"</p>
+                </div>
+                <div class="footer-links">
+                    <h5 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html#about" data-en="About" data-ar="عن المنتدى">About</a></li>
+                        <li><a href="index.html#tracks" data-en="Tracks" data-ar="المسارات">Tracks</a></li>
+                        <li><a href="index.html#timeline" data-en="Timeline" data-ar="الجدول الزمني">Timeline</a></li>
+                        <li><a href="index.html#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5 data-en="Contact" data-ar="اتصل">Contact</h5>
+                    <ul>
+                        <li><a href="mailto:rs@um.edu.sa"><i class="fas fa-envelope"></i> rs@um.edu.sa</a></li>
+                        <li><i class="fas fa-university"></i> <span data-en="AlMaarefa University"
+                                data-ar="جامعة المعرفة">AlMaarefa University</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-en="&copy; 2026 Scientific Research & Innovation Forum. AlMaarefa University. All rights reserved."
+                    data-ar="&copy; 2026 منتدى البحث العلمي والابتكار. جامعة المعرفة. جميع الحقوق محفوظة.">&copy; 2026
+                    Scientific Research & Innovation Forum. AlMaarefa University. All rights reserved.</p>
+                <a href="admin/login.html"
+                    style="color: var(--gray-500); font-size: 0.8rem; margin-top: 8px; display: inline-block;">
+                    <i class="fas fa-lock"></i> <span data-en="Admin Panel" data-ar="لوحة التحكم">Admin Panel</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Fetch and Render Committees
+        async function loadCommittees() {
+            try {
+                const response = await fetch('/api/committees');
+                const result = await response.json();
+
+                if (result.success) {
+                    renderCommittees(result.data);
+                } else {
+                    document.getElementById('committees-container').innerHTML = '<p class="text-center">Failed to load committees.</p>';
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('committees-container').innerHTML = '<p class="text-center">Error loading committees.</p>';
+            }
+        }
+
+        function renderCommittees(committees) {
+            const container = document.getElementById('committees-container');
+            container.innerHTML = '';
+
+            if (!committees || committees.length === 0) {
+                container.innerHTML = '<div class="text-center" style="padding: 50px;"><h3 data-en="Coming Soon" data-ar="قريباً">Coming Soon</h3><p class="text-muted" data-en="Committee members will be announced soon." data-ar="سيتم الإعلان عن أعضاء اللجان قريباً.">Committee members will be announced soon.</p></div>';
+                updateLanguage();
+                return;
+            }
+
+            committees.forEach(committee => {
+                const section = document.createElement('div');
+                section.className = 'committee-section mb-5';
+                section.style.marginBottom = "80px";
+
+                // Only show members if they exist
+                const membersHTML = committee.members && committee.members.length > 0 ? committee.members.map(member => `
+                    <div class="member-card-wrapper" style="flex: 0 0 300px; margin: 15px;">
+                        <div class="member-card text-center p-4" style="background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; height: 100%; border: 1px solid var(--gray-100); display: flex; flex-direction: column; align-items: center;">
+                            <div class="member-img mb-3" style="width: 140px; height: 140px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 4px solid var(--gray-50); box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                <img src="${member.image_path ? '/' + member.image_path : 'images/default-avatar.jpg'}" 
+                                     alt="${member.name_en}" 
+                                     style="width: 100%; height: 100%; object-fit: cover;"
+                                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.name_en)}&background=random&color=fff&size=140'">
+                            </div>
+                            <h4 class="member-name mb-2" style="color: var(--primary); font-size: 1.25rem; font-weight: 700;">
+                                <span class="lang-text" data-en="${member.name_en}" data-ar="${member.name_ar}">${document.documentElement.lang === 'ar' ? member.name_ar : member.name_en}</span>
+                            </h4>
+                            <p class="member-role text-muted mb-0" style="font-weight: 500;">
+                                <span class="lang-text" data-en="${member.role_en || ''}" data-ar="${member.role_ar || ''}">${document.documentElement.lang === 'ar' ? (member.role_ar || '') : (member.role_en || '')}</span>
+                            </p>
+                        </div>
+                    </div>
+                `).join('') : '<p class="text-center text-muted" style="width: 100%;" data-en="Members to be announced" data-ar="سيتم الإعلان عن الأعضاء">Members to be announced</p>';
+
+                section.innerHTML = `
+                    <div class="section-header mb-5" style="text-align: center; margin-bottom: 50px;">
+                        <span class="section-badge" style="display: inline-block; padding: 8px 16px; background: rgba(0, 212, 255, 0.1); color: var(--secondary); border-radius: 50px; font-weight: 600; font-size: 0.9rem; margin-bottom: 15px;">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        <h2 class="section-title" style="font-size: 2.2rem; color: var(--dark);">
+                            <span class="lang-text" data-en="${committee.name_en}" data-ar="${committee.name_ar}">${document.documentElement.lang === 'ar' ? committee.name_ar : committee.name_en}</span>
+                        </h2>
+                        <div style="width: 60px; height: 4px; background: var(--gradient-primary); margin: 20px auto; border-radius: 2px;"></div>
+                    </div>
+                    <div class="members-grid" style="display: flex; flex-wrap: wrap; justify-content: center;">
+                        ${membersHTML}
+                    </div>
+                `;
+                container.appendChild(section);
+            });
+
+            // Re-apply language
+            updateLanguage();
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCommittees);
+    </script>
+</body>
+
+</html>

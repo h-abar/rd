@@ -5,6 +5,29 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const { query, getOne } = require('../database/db');
 
+// Ensure database schema is up to date
+(async () => {
+    try {
+        await query(`
+            DO $$
+            BEGIN
+                BEGIN
+                    ALTER TABLE research_submissions ADD COLUMN presentation_type VARCHAR(50);
+                EXCEPTION
+                    WHEN duplicate_column THEN NULL;
+                END;
+                BEGIN
+                    ALTER TABLE innovation_submissions ADD COLUMN presentation_type VARCHAR(50);
+                EXCEPTION
+                    WHEN duplicate_column THEN NULL;
+                END;
+            END $$;
+        `);
+    } catch (err) {
+        console.error('Schema update error:', err);
+    }
+})();
+
 // Configure multer for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -52,12 +75,13 @@ router.post('/research', upload.single('file'), async (req, res) => {
             background,
             methods,
             results,
-            conclusion
+            conclusion,
+            presentationType // New field
         } = req.body;
 
         // Validate required fields
         if (!authorName || !supervisorName || !email || !affiliation ||
-            !title || !background || !methods || !results || !conclusion) {
+            !title || !background || !methods || !results || !conclusion || !presentationType) {
             return res.status(400).json({
                 success: false,
                 message: 'All required fields must be filled'
@@ -86,13 +110,13 @@ router.post('/research', upload.single('file'), async (req, res) => {
                 submission_id, author_name, supervisor_name, team_members,
                 email, affiliation_id, external_institution, title,
                 background, methods, results, conclusion,
-                file_path, file_name, status
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'pending')
+                file_path, file_name, status, presentation_type
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'pending', $15)
         `, [
             submissionId, authorName, supervisorName, teamMembers || null,
             email, affiliationData.id, externalInstitution || null, title,
             background, methods, results, conclusion,
-            filePath, fileName
+            filePath, fileName, presentationType
         ]);
 
         res.status(201).json({
@@ -127,13 +151,14 @@ router.post('/innovation', upload.single('file'), async (req, res) => {
             problemStatement,
             innovationDescription,
             keyFeatures,
-            implementation
+            implementation,
+            presentationType // New field
         } = req.body;
 
         // Validate required fields
         if (!innovatorName || !mentorName || !email || !affiliation ||
             !title || !problemStatement || !innovationDescription ||
-            !keyFeatures || !implementation) {
+            !keyFeatures || !implementation || !presentationType) {
             return res.status(400).json({
                 success: false,
                 message: 'All required fields must be filled'
@@ -162,13 +187,13 @@ router.post('/innovation', upload.single('file'), async (req, res) => {
                 submission_id, innovator_name, mentor_name, team_members,
                 email, affiliation_id, external_institution, title,
                 problem_statement, innovation_description, key_features, implementation,
-                file_path, file_name, status
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'pending')
+                file_path, file_name, status, presentation_type
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'pending', $15)
         `, [
             submissionId, innovatorName, mentorName, teamMembers || null,
             email, affiliationData.id, externalInstitution || null, title,
             problemStatement, innovationDescription, keyFeatures, implementation,
-            filePath, fileName
+            filePath, fileName, presentationType
         ]);
 
         res.status(201).json({

@@ -54,13 +54,18 @@
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home" class="nav-link active" data-en="Home" data-ar="الرئيسية">Home</a></li>
                     <li><a href="#about" class="nav-link" data-en="About" data-ar="عن المنتدى">About</a></li>
+                    <li><a href="committee.html" class="nav-link" data-en="Committees" data-ar="اللجان">Committees</a>
+                    </li>
                     <li><a href="#tracks" class="nav-link" data-en="Tracks" data-ar="المسارات">Tracks</a></li>
                     <li><a href="#timeline" class="nav-link" data-en="Timeline" data-ar="الجدول الزمني">Timeline</a>
                     </li>
                     <li><a href="#news" class="nav-link" data-en="News" data-ar="الأخبار">News</a></li>
                     <li><a href="#gallery" class="nav-link" data-en="Gallery" data-ar="المعرض">Gallery</a></li>
+                    <li><a href="#speakers" class="nav-link" data-en="Speakers" data-ar="المتحدثون">Speakers</a></li>
                     <li><a href="#contact" class="nav-link" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
                 </ul>
+                <a href="https://rs.um.edu.sa" class="btn-prev-events" target="_blank" data-en="Previous Events"
+                    data-ar="الفعاليات السابقة">Previous Events</a>
                 <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
                     <span class="lang-en">العربية</span>
                     <span class="lang-ar" style="display:none;">English</span>
@@ -106,8 +111,8 @@
                         <div class="hero-theme">
                             <div class="theme-quote">
                                 <span class="quote-mark">"</span>
-                                <p class="theme-en" data-en="Igniting Minds: Shaping the Future"
-                                    data-ar="إضاءة العقول: تشكيل المستقبل">Igniting Minds: Shaping the Future</p>
+                                <p class="theme-en" data-en="Think Smart: Make a Difference"
+                                    data-ar="فكر بذكاء: اصنع فرقاً">Think Smart: Make a Difference</p>
                                 <span class="quote-mark">"</span>
                             </div>
                         </div>
@@ -140,6 +145,14 @@
                             <a href="#about" class="btn btn-glass">
                                 <i class="fas fa-info-circle"></i> <span data-en="Learn More"
                                     data-ar="اقرأ المزيد">Learn More</span>
+                            </a>
+                            <a href="#speakers" class="btn btn-glass ms-2">
+                                <i class="fas fa-users"></i> <span data-en="Speakers"
+                                    data-ar="المتحدثون">Speakers</span>
+                            </a>
+                            <a href="#archive" class="btn btn-glass ms-2">
+                                <i class="fas fa-history"></i> <span data-en="Previous Events"
+                                    data-ar="الأحداث السابقة">Previous Events</span>
                             </a>
                         </div>
                     </div>
@@ -210,6 +223,44 @@
                     <p data-en="Connect with peers, mentors, and industry experts to expand your professional network."
                         data-ar="تواصل مع الزملاء والموجهين وخبراء الصناعة لتوسيع شبكتك المهنية.">Connect with peers,
                         mentors, and industry experts to expand your professional network.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section class="section target-audience" id="audience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-bullseye"></i> <span data-en="Who Should Attend"
+                        data-ar="الفئات المستهدفة">Who Should Attend</span></span>
+                <h2 class="section-title"><span data-en="Target" data-ar="الفئة">Target</span> <span class="highlight"
+                        data-en="Audience" data-ar="المستهدفة">Audience</span></h2>
+            </div>
+
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3 data-en="Students from Health Science Disciplines" data-ar="طلاب التخصصات الصحية">Students from
+                        Health Science Disciplines</h3>
+                    <p data-en="Medical, Pharmacy, Nursing, Emergency Care, Anesthesia Technology, Information Technology, and other health science students from AlMaarefa University or external institutions or organizations seeking to enhance their academic and research skills in these fields."
+                        data-ar="طلاب الطب والصيدلة والتمريض والرعاية الطارئة وتقنية التخدير وتقنية المعلومات وغيرها من التخصصات الصحية من جامعة المعرفة أو المؤسسات الخارجية الراغبين في تعزيز مهاراتهم الأكاديمية والبحثية.">
+                        Medical, Pharmacy, Nursing, Emergency Care, Anesthesia Technology, Information Technology, and
+                        other health science students from AlMaarefa University or external institutions or
+                        organizations seeking to enhance their academic and research skills in these fields.
+                    </p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3 data-en="Faculty Members and Academic Professionals"
+                        data-ar="أعضاء هيئة التدريس والمهنيين الأكاديميين">Faculty Members and Academic Professionals
+                    </h3>
+                    <p data-en="Professors, lecturers, and researchers from AlMaarefa and external faculty members and professionals in these disciplines looking to expand their expertise and contribute to cutting-edge research."
+                        data-ar="الأساتذة والمحاضرون والباحثون من جامعة المعرفة وأعضاء هيئة التدريس الخارجيين والمهنيين في هذه التخصصات الذين يتطلعون لتوسيع خبراتهم والمساهمة في الأبحاث المتطورة.">
+                        Professors, lecturers, and researchers from AlMaarefa and external faculty members and
+                        professionals in these disciplines looking to expand their expertise and contribute to
+                        cutting-edge research.
+                    </p>
                 </div>
             </div>
         </div>
@@ -331,56 +382,178 @@
         </div>
     </section>
 
+    <!-- Speakers Section -->
+    <section class="section speakers" id="speakers">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-microphone"></i> <span data-en="Our Speakers"
+                        data-ar="المتحدثون">Our Speakers</span></span>
+                <h2 class="section-title"><span data-en="Keynote" data-ar="متحدثو">Keynote</span> <span
+                        class="highlight" data-en="Speakers" data-ar="المنتدى">Speakers</span></h2>
+                <p class="section-desc" data-en="Distinguished speakers to be announced soon."
+                    data-ar="سيتم الإعلان عن المتحدثين المتميزين قريباً.">Distinguished speakers to be announced soon.
+                </p>
+            </div>
+
+            <div class="speakers-placeholder" style="text-align: center; padding: 40px; color: var(--gray-500);">
+                <i class="fas fa-user-tie" style="font-size: 4rem; opacity: 0.2; margin-bottom: 20px;"></i>
+                <h3 data-en="Stay Tuned!" data-ar="ترقبوا!">Stay Tuned!</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
     <!-- Timeline Section -->
     <section class="section timeline-section" id="timeline">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge"><i class="fas fa-calendar-alt"></i> <span data-en="Important Dates"
-                        data-ar="تواريخ مهمة">Important Dates</span></span>
+                <span class="section-badge"><i class="fas fa-calendar-alt"></i> <span data-en="Conference Schedule"
+                        data-ar="جدول المؤتمر">Conference Schedule</span></span>
                 <h2 class="section-title"><span data-en="Event" data-ar="جدول">Event</span> <span class="highlight"
                         data-en="Timeline" data-ar="الفعاليات">Timeline</span></h2>
             </div>
 
-            <div class="timeline">
-                <div class="timeline-track"></div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"><i class="fas fa-play"></i></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date" data-en="February 2026" data-ar="فبراير 2026">February 2026</span>
-                        <h4 data-en="Submission Opens" data-ar="فتح باب التقديم">Submission Opens</h4>
-                        <p data-en="Start submitting your abstracts through our online portal"
-                            data-ar="ابدأ بتقديم ملخصاتك عبر بوابتنا الإلكترونية">Start submitting your abstracts
-                            through our online portal</p>
+            <div class="schedule-grid">
+                <!-- Day 1 -->
+                <div class="schedule-day">
+                    <div class="day-header">
+                        <h3 data-en="Day 1" data-ar="اليوم الأول">Day 1</h3>
+                        <span class="day-date" data-en="5th May 2026" data-ar="5 مايو 2026">5th May 2026</span>
+                    </div>
+                    <div class="day-events">
+                        <div class="event-item">
+                            <span class="event-time">09:00 - 09:15 AM</span>
+                            <div class="event-info">
+                                <h4 data-en="Opening of the Forum" data-ar="افتتاح المنتدى">Opening of the Forum</h4>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <span class="event-time">09:15 - 12:00 PM</span>
+                            <div class="event-info">
+                                <h4 data-en="Oral Presentation" data-ar="العروض الشفهية">Oral Presentation</h4>
+                            </div>
+                        </div>
+                        <div class="event-item break">
+                            <span class="event-time">12:00 - 12:30 PM</span>
+                            <div class="event-info">
+                                <h4 data-en="Break" data-ar="استراحة">Break</h4>
+                            </div>
+                        </div>
+                        <div class="event-item highlight-event">
+                            <span class="event-time">12:30 - 03:30 PM</span>
+                            <div class="event-info">
+                                <h4 data-en="Pre-Forum Workshop on Research and Innovation"
+                                    data-ar="ورشة عمل ما قبل المنتدى حول البحث والابتكار">Pre-Forum Workshop on Research
+                                    and Innovation</h4>
+                                <a href="#workshop" class="btn-sm btn-link" data-en="View Details"
+                                    data-ar="عرض التفاصيل" style="color: var(--secondary); font-size: 0.9rem;">View
+                                    Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot pulse"><i class="fas fa-clock"></i></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date" data-en="18 April 2026" data-ar="18 أبريل 2026">18 April 2026</span>
-                        <h4 data-en="Submission Deadline" data-ar="الموعد النهائي للتقديم">Submission Deadline</h4>
-                        <p data-en="Last day to submit your abstracts" data-ar="آخر يوم لتقديم ملخصاتك">Last day to
-                            submit your abstracts</p>
+
+                <!-- Day 2 -->
+                <div class="schedule-day">
+                    <div class="day-header">
+                        <h3 data-en="Day 2" data-ar="اليوم الثاني">Day 2</h3>
+                        <span class="day-date" data-en="6th May 2026" data-ar="6 مايو 2026">6th May 2026</span>
+                    </div>
+                    <div class="day-events">
+                        <div class="event-item">
+                            <span class="event-time">09:00 AM - 01:00 PM</span>
+                            <div class="event-info">
+                                <h4 data-en="Poster Presentation" data-ar="عروض الملصقات">Poster Presentation</h4>
+                            </div>
+                        </div>
+                        <div class="event-item highlight-event">
+                            <span class="event-time">01:00 - 02:30 PM</span>
+                            <div class="event-info">
+                                <h4 data-en="Panel Discussion" data-ar="حلقة نقاش">Panel Discussion</h4>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <span class="event-time">02:30 - 03:15 PM</span>
+                            <div class="event-info">
+                                <h4 data-en="Valedictory Ceremony" data-ar="الحفل الختامي">Valedictory Ceremony</h4>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <span class="event-time">03:15 PM</span>
+                            <div class="event-info">
+                                <h4 data-en="Group Photograph" data-ar="صورة جماعية">Group Photograph</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"><i class="fas fa-envelope-open"></i></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date" data-en="25 April 2026" data-ar="25 أبريل 2026">25 April 2026</span>
-                        <h4 data-en="Acceptance Notification" data-ar="إشعار القبول">Acceptance Notification</h4>
-                        <p data-en="Authors will be notified of acceptance" data-ar="سيتم إخطار المؤلفين بالقبول">
-                            Authors will be notified of acceptance</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"><i class="fas fa-star"></i></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date" data-en="5-6 May 2026" data-ar="5-6 مايو 2026">5-6 May 2026</span>
-                        <h4 data-en="Forum Days" data-ar="أيام المنتدى">Forum Days</h4>
-                        <p data-en="Presentations, networking, and awards ceremony"
-                            data-ar="العروض التقديمية، التواصل، وحفل توزيع الجوائز">Presentations, networking, and
-                            awards ceremony</p>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workshop Section -->
+    <section class="section workshop-section" id="workshop">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-chalkboard-teacher"></i> <span data-en="Workshop Schedule"
+                        data-ar="جدول الورشة">Workshop Schedule</span></span>
+                <h2 class="section-title" data-en="Pre-Forum Workshop on Research and Innovation"
+                    data-ar="ورشة عمل ما قبل المنتدى حول البحث والابتكار">Pre-Forum Workshop on Research and Innovation
+                </h2>
+                <p class="section-desc" data-en="5th May 2026" data-ar="5 مايو 2026">5th May 2026</p>
+            </div>
+
+            <div class="workshop-wrapper">
+                <table class="workshop-table">
+                    <thead>
+                        <tr>
+                            <th data-en="Time" data-ar="الوقت">Time</th>
+                            <th data-en="Topic" data-ar="الموضوع">Topic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12:30 - 1:10</td>
+                            <td data-en="Developing ideas for Scientific Research and Innovation"
+                                data-ar="تطوير أفكار للبحث العلمي والابتكار">Developing ideas for Scientific Research
+                                and Innovation</td>
+                        </tr>
+                        <tr>
+                            <td>1:10 - 1:20</td>
+                            <td data-en="Question and Answer" data-ar="سؤال وجواب">Question and Answer</td>
+                        </tr>
+                        <tr class="break-row">
+                            <td>1:20 - 1:30</td>
+                            <td data-en="Break" data-ar="استراحة">Break</td>
+                        </tr>
+                        <tr>
+                            <td>1:30 - 2:10</td>
+                            <td data-en="Artificial Intelligence & Machine Learning in Research"
+                                data-ar="الذكاء الاصطناعي وتعلم الآلة في البحث">Artificial Intelligence & Machine
+                                Learning in Research</td>
+                        </tr>
+                        <tr>
+                            <td>2:10 - 2:20</td>
+                            <td data-en="Question and Answer" data-ar="سؤال وجواب">Question and Answer</td>
+                        </tr>
+                        <tr class="break-row">
+                            <td>2:20 - 2:30</td>
+                            <td data-en="Break" data-ar="استراحة">Break</td>
+                        </tr>
+                        <tr>
+                            <td>2:30 - 3:10</td>
+                            <td data-en="Entrepreneurship & Translational Research"
+                                data-ar="ريادة الأعمال والبحث الانتقالي">Entrepreneurship & Translational Research</td>
+                        </tr>
+                        <tr>
+                            <td>3:10 - 3:20</td>
+                            <td data-en="Question and Answer" data-ar="سؤال وجواب">Question and Answer</td>
+                        </tr>
+                        <tr>
+                            <td>3:20 - 3:30</td>
+                            <td data-en="End of Event" data-ar="نهاية الفعالية">End of Event</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -503,9 +676,12 @@
                     <div class="contact-icon"><i class="fas fa-share-alt"></i></div>
                     <h4 data-en="Follow Us" data-ar="تابعنا">Follow Us</h4>
                     <div class="social-links">
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/AlMaarefa" target="_blank" aria-label="Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/school/almaarefa-university/" target="_blank"
+                            aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/almaarefa/" target="_blank" aria-label="Instagram"><i
+                                class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>

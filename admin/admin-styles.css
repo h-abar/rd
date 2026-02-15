@@ -1020,3 +1020,37 @@ body {
     color: white;
     padding: 0;
 }
+
+/* Committees Styles */
+.members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.member-item {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.member-item img {
+    border-radius: 50%;
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 1px solid #ddd;
+}
+
+.add-member-section {
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #e5e7eb;
+}
