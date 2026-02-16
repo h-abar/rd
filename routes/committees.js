@@ -65,11 +65,12 @@ const upload = multer({
 // Get all committees with members
 router.get('/', async (req, res) => {
     try {
-        const committees = await query('SELECT * FROM committees ORDER BY id');
+        const result = await query('SELECT * FROM committees ORDER BY id');
+        const committees = result.rows;
 
         for (let committee of committees) {
-            const members = await query('SELECT * FROM committee_members WHERE committee_id = $1 ORDER BY id', [committee.id]);
-            committee.members = members;
+            const memberResult = await query('SELECT * FROM committee_members WHERE committee_id = $1 ORDER BY id', [committee.id]);
+            committee.members = memberResult.rows;
         }
 
         res.json({ success: true, data: committees });
@@ -89,7 +90,7 @@ router.post('/create', async (req, res) => {
             'INSERT INTO committees (name_en, name_ar) VALUES ($1, $2) RETURNING *',
             [name_en, name_ar]
         );
-        res.json({ success: true, data: result[0] });
+        res.json({ success: true, data: result.rows[0] });
     } catch (err) {
         console.error(err);
         res.status(500).json({ success: false, message: 'Server error' });
@@ -110,7 +111,7 @@ router.post('/member/add', upload.single('image'), async (req, res) => {
             'INSERT INTO committee_members (committee_id, name_en, name_ar, role_en, role_ar, image_path) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
             [committee_id, name_en, name_ar, role_en, role_ar, image_path]
         );
-        res.json({ success: true, data: result[0] });
+        res.json({ success: true, data: result.rows[0] });
     } catch (err) {
         console.error(err);
         res.status(500).json({ success: false, message: 'Server error' });
