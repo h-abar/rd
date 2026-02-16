@@ -81,6 +81,7 @@ function initNavigation() {
             if (pageId === 'gallery') loadGallery();
             if (pageId === 'settings') loadSettings();
             if (pageId === 'committees') loadCommittees();
+            if (pageId === 'speakers') loadSpeakers();
         });
     });
 }
@@ -903,3 +904,109 @@ async function deleteMember(memberId) {
         alert('Error removing member');
     }
 }
+
+/* Speakers Management */
+function loadSpeakers() {
+    const list = document.getElementById('speakersList');
+    if (!list) return;
+
+    list.innerHTML = '<div class="text-center p-5"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+
+    fetch('/api/speakers', {
+        headers: { 'Authorization': `Bearer ${authToken}` }
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) throw new Error(data.message);
+
+            const speakers = data.data;
+            if (speakers.length === 0) {
+                list.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+                    <i class="fas fa-user-slash" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>No speakers added yet. The "Stay Tuned" message will be shown on the homepage.</p>
+                </div>
+            `;
+                return;
+            }
+
+            list.innerHTML = speakers.map(speaker => `
+            <div class="card speaker-card" style="box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden; background: #fff;">
+                <div style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+                    ${speaker.image_path ?
+                    `<img src="/${speaker.image_path}" alt="${speaker.name_en}" style="width: 100%; height: 100%; object-fit: cover;">` :
+                    `<i class="fas fa-user" style="font-size: 4rem; color: #ccc;"></i>`
+                }
+                </div>
+                <div class="card-body" style="padding: 15px;">
+                    <span class="badge" style="background: #e3f2fd; color: #0d47a1; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 10px; display: inline-block;">${speaker.speaker_type}</span>
+                    <h5 style="margin: 0 0 5px; font-weight: 600;">${speaker.name_en}</h5>
+                    <p style="margin: 0 0 10px; color: #666; font-size: 0.9rem;">${speaker.role_en}</p>
+                    <div style="border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; text-align: right;">
+                        <button onclick="deleteSpeaker(${speaker.id})" class="btn-danger-sm" style="background: #ffebee; color: #c62828; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        })
+        .catch(err => {
+            console.error(err);
+            list.innerHTML = '<div class="text-danger p-5">Error loading speakers</div>';
+        });
+}
+
+async function deleteSpeaker(id) {
+    if (!confirm('Delete this speaker?')) return;
+
+    try {
+        const res = await fetch(`/api/speakers/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+            loadSpeakers();
+        } else {
+            alert('Error deleting speaker');
+        }
+    } catch (e) {
+        console.error(e);
+        alert('Server Error');
+    }
+}
+
+// Add Speaker Form Helper
+document.getElementById('createSpeakerForm')?.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+
+    const formData = new FormData(this);
+
+    try {
+        const res = await fetch('/api/speakers/create', {
+            method: 'POST',
+            body: formData,
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            this.reset();
+            loadSpeakers();
+            alert('Speaker added successfully');
+        } else {
+            alert(data.message || 'Error adding speaker');
+        }
+    } catch (e) {
+        console.error(e);
+        alert('Server Error');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+});

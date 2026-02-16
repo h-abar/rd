@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initLanguageSwitcher();
     initPublicNews();
     initPublicGallery();
+    initPublicSpeakers();
 });
 
 // Science Background Animation
@@ -473,6 +474,52 @@ function initPublicGallery() {
 
     // Lightbox
     initLightbox();
+}
+
+// ... existing gallery render ...
+
+function initPublicSpeakers() {
+    const grid = document.getElementById('publicSpeakersGrid');
+    const placeholder = document.getElementById('speakersPlaceholder');
+    if (!grid) return;
+
+    fetch('/api/speakers')
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.data.length > 0) {
+                if (placeholder) placeholder.style.display = 'none';
+                grid.style.display = 'grid';
+                grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+                grid.style.gap = '30px';
+                grid.style.marginTop = '40px';
+
+                const lang = document.documentElement.lang || 'en';
+
+                grid.innerHTML = data.data.map(s => {
+                    const name = lang === 'ar' ? s.name_ar : s.name_en;
+                    const role = lang === 'ar' ? s.role_ar : s.role_en;
+
+                    return `
+                <div class="speaker-card" data-aos="fade-up" style="background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); text-align: center; transition: transform 0.3s;">
+                    <div class="speaker-img" style="width: 140px; height: 140px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 4px solid #00d4ff;">
+                        <img src="/${s.image_path || 'images/default-user.png'}" alt="Speaker" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <h3 style="margin: 0 0 10px; color: #1e293b; font-size: 1.25rem; font-weight: 700;">
+                        <span data-en="${s.name_en}" data-ar="${s.name_ar}">${name}</span>
+                    </h3>
+                    <p style="margin: 0 0 15px; color: #64748b; font-size: 0.95rem; font-weight: 500;">
+                        <span data-en="${s.role_en}" data-ar="${s.role_ar}">${role}</span>
+                    </p>
+                    ${s.speaker_type ? `<span class="badge" style="background: rgba(0, 212, 255, 0.1); color: #0096c7; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; display: inline-block;">${s.speaker_type}</span>` : ''}
+                </div>
+                `;
+                }).join('');
+            } else {
+                if (placeholder) placeholder.style.display = 'block';
+                grid.style.display = 'none';
+            }
+        })
+        .catch(console.error);
 }
 
 function renderGallery(images) {
