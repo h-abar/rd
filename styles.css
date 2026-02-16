@@ -151,6 +151,11 @@ a {
     letter-spacing: 3px;
 }
 
+/* Hide logo text in header to make space for University logo */
+.header .logo-text {
+    display: none;
+}
+
 /* Navigation Container */
 .nav {
     display: flex;
