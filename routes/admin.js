@@ -447,12 +447,54 @@ router.get('/export/:type', authMiddleware, async (req, res) => {
         const { format = 'json' } = req.query;
 
         const table = type === 'research' ? 'research_submissions' : 'innovation_submissions';
-        const submissions = await getAll(`
-            SELECT s.*, a.name_en as affiliation_name
-            FROM ${table} s
-            LEFT JOIN affiliations a ON s.affiliation_id = a.id
-            ORDER BY s.created_at DESC
-        `);
+        let queryText;
+        if (type === 'research') {
+            queryText = `
+                SELECT 
+                    s.submission_id as "Submission ID",
+                    s.status as "Status",
+                    s.created_at as "Date",
+                    s.title as "Title",
+                    s.author_name as "Author Name",
+                    s.supervisor_name as "Supervisor Name",
+                    s.team_members as "Team Members",
+                    s.email as "Email",
+                    a.name_en as "Affiliation",
+                    s.external_institution as "External Institution",
+                    s.presentation_type as "Presentation Type",
+                    s.background as "Background",
+                    s.methods as "Methods",
+                    s.results as "Results",
+                    s.conclusion as "Conclusion"
+                FROM ${table} s
+                LEFT JOIN affiliations a ON s.affiliation_id = a.id
+                ORDER BY s.created_at DESC
+            `;
+        } else {
+            queryText = `
+                SELECT 
+                    s.submission_id as "Submission ID",
+                    s.status as "Status",
+                    s.created_at as "Date",
+                    s.title as "Title",
+                    s.innovator_name as "Innovator Name",
+                    s.mentor_name as "Mentor Name",
+                    s.team_members as "Team Members",
+                    s.email as "Email",
+                    a.name_en as "Affiliation",
+                    s.external_institution as "External Institution",
+                    s.presentation_type as "Presentation Type",
+                    s.problem_statement as "Problem Statement",
+                    s.innovation_description as "Innovation Description",
+                    s.key_features as "Key Features",
+                    s.implementation as "Implementation"
+                FROM ${table} s
+                LEFT JOIN affiliations a ON s.affiliation_id = a.id
+                ORDER BY s.created_at DESC
+            `;
+        }
+
+        const submissions = await getAll(queryText);
 
         if (format === 'csv') {
             // Generate CSV

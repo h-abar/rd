@@ -1010,3 +1010,10 @@ document.getElementById('createSpeakerForm')?.addEventListener('submit', async f
         btn.innerHTML = originalText;
     }
 });
+
+// Expose functions globally
+window.addMember = addMember;
+window.deleteMember = deleteMember;
+window.deleteCommittee = deleteCommittee;
+window.deleteSpeaker = deleteSpeaker;
+window.loadSpeakers = loadSpeakers;
