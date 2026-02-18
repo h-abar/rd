@@ -261,13 +261,15 @@ function initContactForm() {
 
 function initLanguageSwitcher() {
     const langToggle = document.getElementById('langToggle');
-    if (!langToggle) return;
+    // if (!langToggle) return; // Removed early return to ensure updateLanguage is exposed
+
     let currentLang = localStorage.getItem('srif_lang') || 'en';
     const updateUI = (lang) => {
         document.documentElement.lang = lang;
         document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
         document.body.classList.toggle('rtl', lang === 'ar');
-        langToggle.textContent = (lang === 'ar') ? 'English' : 'العربية';
+        if (langToggle) langToggle.textContent = (lang === 'ar') ? 'English' : 'العربية';
+
         document.querySelectorAll('[data-en]').forEach(el => {
             el.textContent = el.getAttribute(`data-${lang}`);
         });
@@ -281,10 +283,13 @@ function initLanguageSwitcher() {
     window.updateLanguage = () => updateUI(localStorage.getItem('srif_lang') || 'en');
 
     updateUI(currentLang);
-    langToggle.addEventListener('click', () => {
-        currentLang = (currentLang === 'en') ? 'ar' : 'en';
-        updateUI(currentLang);
-    });
+
+    if (langToggle) {
+        langToggle.addEventListener('click', () => {
+            currentLang = (currentLang === 'en') ? 'ar' : 'en';
+            updateUI(currentLang);
+        });
+    }
 }
 
 // ==================== PUBLIC NEWS ====================
