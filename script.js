@@ -276,6 +276,10 @@ function initLanguageSwitcher() {
         });
         localStorage.setItem('srif_lang', lang);
     };
+
+    // Expose for external use (e.g. committee.html)
+    window.updateLanguage = () => updateUI(localStorage.getItem('srif_lang') || 'en');
+
     updateUI(currentLang);
     langToggle.addEventListener('click', () => {
         currentLang = (currentLang === 'en') ? 'ar' : 'en';
