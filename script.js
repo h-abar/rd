@@ -502,7 +502,7 @@ function initPublicSpeakers() {
                     return `
                 <div class="speaker-card" data-aos="fade-up" style="background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); text-align: center; transition: transform 0.3s;">
                     <div class="speaker-img" style="width: 140px; height: 140px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 4px solid #00d4ff;">
-                        <img src="/${s.image_path || 'images/default-user.png'}" alt="Speaker" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="/${s.image_path || 'images/unnamed.webp'}" alt="Speaker" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <h3 style="margin: 0 0 10px; color: #1e293b; font-size: 1.25rem; font-weight: 700;">
                         <span data-en="${s.name_en}" data-ar="${s.name_ar}">${name}</span>

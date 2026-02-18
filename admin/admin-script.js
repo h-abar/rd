@@ -773,7 +773,7 @@ async function loadCommittees() {
                     <div class="members-list mb-3" id="members-${c.id}">
                         ${c.members && c.members.length > 0 ? c.members.map(m => `
                             <div class="member-item" style="display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #f8f9fa;">
-                                <img src="/${m.image_path || 'images/default-avatar.png'}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 1px solid #ddd;">
+                                <img src="/${m.image_path || 'images/unnamed.webp'}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 1px solid #ddd;">
                                 <div style="flex: 1;">
                                     <strong>${m.name_en}</strong> <span class="text-muted">(${m.role_en || '-'})</span><br>
                                     <small>${m.name_ar} <span class="text-muted">(${m.role_ar || '-'})</span></small>

@@ -2268,3 +2268,4 @@ body.rtl .lang-toggle {
         font-size: 0.78rem;
     }
 }
+.success-message { display: none; margin-top: 15px; color: #10b981; font-weight: 600; text-align: center; font-size: 1.1rem; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; }
