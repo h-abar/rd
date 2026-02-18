@@ -206,4 +206,42 @@ async function sendStatusEmail(submission, newStatus, type, reviewerNotes) {
     }
 }
 
-module.exports = { sendStatusEmail };
+/**
+ * Send contact form message to admin
+ */
+async function sendContactEmail(data) {
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) return;
+
+    const { name, email, subject, message } = data;
+    const adminEmail = 'rs@um.edu.sa';
+
+    const mailOptions = {
+        from: `"${process.env.SMTP_FROM_NAME || 'SRIF Website'}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+        to: adminEmail,
+        replyTo: email,
+        subject: `SRIF Contact: ${subject || 'New Message'}`,
+        html: `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                <h2 style="color: #0d47a1;">New Contact Message</h2>
+                <p><strong>From:</strong> ${name} (<a href="mailto:${email}">${email}</a>)</p>
+                <p><strong>Subject:</strong> ${subject || 'N/A'}</p>
+                <hr style="border: 1px solid #eee;">
+                <p><strong>Message:</strong></p>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 4px solid #0d47a1;">
+                    ${message.replace(/\n/g, '<br>')}
+                </div>
+            </div>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log(`📧 Contact email sent to ${adminEmail}`);
+        return true;
+    } catch (error) {
+        console.error('❌ Failed to send contact email:', error.message);
+        return false;
+    }
+}
+
+module.exports = { sendStatusEmail, sendContactEmail };
