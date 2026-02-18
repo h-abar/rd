@@ -465,7 +465,9 @@ router.get('/export/:type', authMiddleware, async (req, res) => {
                     s.background as "Background",
                     s.methods as "Methods",
                     s.results as "Results",
-                    s.conclusion as "Conclusion"
+                    s.conclusion as "Conclusion",
+                    s.file_name as "File Name",
+                    s.file_path as "File Path"
                 FROM ${table} s
                 LEFT JOIN affiliations a ON s.affiliation_id = a.id
                 ORDER BY s.created_at DESC
@@ -487,7 +489,9 @@ router.get('/export/:type', authMiddleware, async (req, res) => {
                     s.problem_statement as "Problem Statement",
                     s.innovation_description as "Innovation Description",
                     s.key_features as "Key Features",
-                    s.implementation as "Implementation"
+                    s.implementation as "Implementation",
+                    s.file_name as "File Name",
+                    s.file_path as "File Path"
                 FROM ${table} s
                 LEFT JOIN affiliations a ON s.affiliation_id = a.id
                 ORDER BY s.created_at DESC
