@@ -503,8 +503,12 @@ router.get('/export/:type', authMiddleware, async (req, res) => {
         if (format === 'csv') {
             // Generate CSV
             const headers = Object.keys(submissions[0] || {}).join(',');
-            const rows = submissions.map(s => Object.values(s).map(v => `"${v}"`).join(','));
-            const csv = [headers, ...rows].join('\n');
+            const rows = submissions.map(s => Object.values(s).map(v => {
+                if (v === null || v === undefined) return '""';
+                if (v instanceof Date) return `"${v.toISOString().split('T')[0]}"`;
+                return `"${String(v).replace(/"/g, '""')}"`;
+            }).join(','));
+            const csv = ['\ufeff' + headers, ...rows].join('\n');
 
             res.setHeader('Content-Type', 'text/csv');
             res.setHeader('Content-Disposition', `attachment; filename=${type}_submissions.csv`);

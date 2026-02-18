@@ -528,43 +528,55 @@ function initForms() {
 }
 
 // Export
+// Export
 async function handleExport(type) {
     if (type === 'all') {
-        // Export both
         await handleExport('research');
         await handleExport('innovation');
         return;
     }
 
-    const data = await apiRequest(`/export/${type}?format=json`);
-    if (!data || !data.success || !data.data.length) {
-        showNotification('لا توجد بيانات للتصدير', 'warning');
-        return;
+    const btn = document.querySelector(`[data-action="export-${type}"]`);
+    const originalText = btn ? btn.innerHTML : '';
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Exporting...';
     }
 
-    // Generate CSV
-    const submissions = data.data;
-    const headers = ['ID', 'Title', 'Author', 'Email', 'Affiliation', 'Status', 'Date'];
-    const rows = submissions.map(s => [
-        s.submission_id,
-        `"${(s.title || '').replace(/"/g, '""')}"`,
-        `"${(s.author_name || s.innovator_name || '').replace(/"/g, '""')}"`,
-        s.email,
-        `"${(s.affiliation_name || '').replace(/"/g, '""')}"`,
-        s.status,
-        new Date(s.created_at).toISOString().split('T')[0]
-    ]);
+    try {
+        const response = await fetch(`${API_BASE}/export/${type}?format=csv`, {
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
+        });
 
-    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${type}_submissions_${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+        if (response.status === 404) {
+            showNotification('No data to export', 'warning');
+            return;
+        }
 
-    showNotification('تم تصدير البيانات بنجاح', 'success');
+        if (!response.ok) throw new Error('Export failed');
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${type}_submissions_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        showNotification('Export successful', 'success');
+    } catch (error) {
+        console.error(error);
+        showNotification('Export failed', 'error');
+    } finally {
+        if (btn) {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
 }
 
 // Notification
